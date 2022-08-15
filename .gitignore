@@ -1,0 +1,8 @@
+.env
+.idea
+__pycache__
+
+.rasa
+models
+results
+story_graph.dot

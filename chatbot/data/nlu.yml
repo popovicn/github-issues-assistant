@@ -1,0 +1,50 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hello there
+    - hey
+    - hi bot
+- intent: act_submit_issue
+  examples: |
+    - i want to submit an issue
+    - i have an issue
+    - a have a problem
+    - something is not working
+    - module doesnt work
+    - there is a bug
+    - something is wrong
+    - i can't access that
+    - seems like this is not working
+    - i have a problem accessing module
+    - your module is broken
+    - error when loading
+    - not responding
+    - i have a problem
+
+- intent: tell_username
+  examples: |
+    - it's [johndoe](username)
+    - my username is [npopovic](username)
+    - [tomnomnom](username)
+    - [1337-code](username)
+    - i am [six2dez](username)
+    - username [mhmdiaa](username)
+    - user [gh-user-00934](username)
+    - i am Bob and my username is [b0bby](username)
+    - my github username is [torvalds](username)
+    - [fo0bar](username) is my username
+    - the [sv3nn](username)
+    - it is [npopovic](username)
+    - i am [barf00] on github
+    - my github userrname is [nenad-popovic--95](username)
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - is this a bot or a human
+    - human or bot

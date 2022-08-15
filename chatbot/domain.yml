@@ -1,0 +1,71 @@
+version: '3.1'
+intents:
+- bot_challenge
+- greet
+- submit_issue
+- tell_username
+- act_submit_issue
+- act_check_issue
+actions:
+- read_username
+- choose_action
+- utter_introduce
+- utter_submit_issue
+- send_submit_issue_form
+responses:
+  utter_introduce:
+    - text: HIII
+  utter_iamabot:
+    - text: I am a bot, powered by Rasa.
+  utter_submit_issue:
+    - text: What is your GitHub username?
+  utter_choose:
+    - text: "Do you need to submit new issue or check existing?"
+      buttons:
+        - title: "Submit new issue"
+          payload: /act_submit_issue'
+        - title: "Check existing issue"
+          payload: /act_check_issue'
+  utter_act_submit_issue:
+    - text: You choose to submit issue
+  utter_act_check_issue:
+    - text: You choose to check issue
+  utter_ask_submit_issue_form_issue_description:
+    - text: Please describe your issue
+  utter_ask_submit_issue_form_issue_label:
+    - text: Please enter issue label
+
+entities:
+- username
+- issue_description
+- issue_label
+
+slots:
+  username:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: username
+
+  issue_description:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: issue_description
+  issue_label:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: issue_label
+forms:
+  submit_issue_form:
+    required_slots:
+        - issue_description
+        - issue_label
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,32 @@
+version: "3.1"
+
+rules:
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Run submit issue
+  steps:
+    - intent: act_check_issue
+    - action: utter_act_check_issue
+
+- rule: Activate submit issue form
+  steps:
+  - intent: act_submit_issue
+  - action: submit_issue_form
+  - active_loop: submit_issue_form
+
+- rule: Deactivate submit issue form
+  condition:
+  # Condition that form is active.
+  - active_loop: submit_issue_form
+  steps:
+  # Form is deactivated
+  - action: submit_issue_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: send_submit_issue_form

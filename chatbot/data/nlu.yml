@@ -1,5 +1,28 @@
 version: "3.1"
 nlu:
+
+- intent: affirm
+  examples: |
+    - yes
+    - yes please
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - ok
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - i changed my mind
+    - actually no
+    - no sorry
 - intent: greet
   examples: |
     - hi

@@ -29,4 +29,4 @@ rules:
   - slot_was_set:
     - requested_slot: null
   # The actions we want to run when the form is submitted.
-  - action: send_submit_issue_form
+  - action: ask_confirm_submit_issue

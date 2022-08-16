@@ -4,19 +4,22 @@ intents:
 - greet
 - submit_issue
 - tell_username
+- affirm
+- deny
 - act_submit_issue
 - act_check_issue
 actions:
 - read_username
 - choose_action
-- utter_introduce
-- utter_submit_issue
 - send_submit_issue_form
+- ask_confirm_submit_issue
 responses:
-  utter_introduce:
-    - text: HIII
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
+  utter_anything_else:
+    - text: Can I do anything else for you?
+  utter_cancel_submit_issue:
+    - text: Ok, your request is cancelled.
   utter_submit_issue:
     - text: What is your GitHub username?
   utter_choose:

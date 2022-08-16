@@ -7,7 +7,27 @@ stories:
     - intent: greet
     - action: utter_choose
 
+- story: submit_issue
+  steps:
+    - intent: submit_issue
+    - action: submit_issue_form
+    - active_loop: submit_issue_form
+    - slot_was_set:
+        - requested_slot: null  # This ensures that form is complete
+    - intent: affirm
+    - action: send_submit_issue_form
+    - action: utter_anything_else
 
+- story: submit_issue_cancel
+  steps:
+    - intent: submit_issue
+    - action: submit_issue_form
+    - active_loop: submit_issue_form
+    - slot_was_set:
+        - requested_slot: null
+    - intent: deny
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
 
 #- story: s_create_issue
 #  steps:

@@ -58,10 +58,10 @@ class ActionChooseAction(Action):
         return []
 
 
-class ActionSubmitIssueForm(Action):
+class UtterConfirmSubmitIssue(Action):
 
     def name(self) -> Text:
-        return "send_submit_issue_form"
+        return "ask_confirm_submit_issue"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -74,7 +74,29 @@ class ActionSubmitIssueForm(Action):
         for slot_name in take_slots:
             slot_val = tracker.get_slot(slot_name)
             dispatcher.utter_message(text=f"  {slot_name}: {slot_val}")
-        dispatcher.utter_message("Do you want to submit this issue")
+        dispatcher.utter_message("Do you want to submit this issue?")
+        return []
+
+
+class ActionSubmitIssueForm(Action):
+
+    def name(self) -> Text:
+        return "send_submit_issue_form"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        take_slots = [
+            "issue_description",
+            "issue_label"
+        ]
+        data = {}
+        for slot_name in take_slots:
+            data[slot_name] = tracker.get_slot(slot_name)
+
+        dispatcher.utter_message(str(data))
+        dispatcher.utter_message("Your issue has been submitted, you can track it on: <LINK>")
+
         return [
             SlotSet('issue_description', None),
             SlotSet('issue_label', None)

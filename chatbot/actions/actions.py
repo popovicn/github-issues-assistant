@@ -5,19 +5,6 @@ from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
 
-class ActionReadUsername(Action):
-
-    def name(self) -> Text:
-        return "read_username"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        username = tracker.get_slot('username')
-        dispatcher.utter_message(text=f"You are: {username}")
-        return []
-
-
 class ActionChooseAction(Action):
 
     def name(self) -> Text:
@@ -41,12 +28,13 @@ class UtterConfirmSubmitIssue(Action):
 
         take_slots = [
             "issue_description",
-            "issue_label"
+            "issue_label",
+            "version"
         ]
         dispatcher.utter_message("You provided following information:")
         for slot_name in take_slots:
             slot_val = tracker.get_slot(slot_name)
-            dispatcher.utter_message(text=f"  {slot_name}: {slot_val}")
+            dispatcher.utter_message(text=f">  {slot_name}: {slot_val}")
         dispatcher.utter_message("Do you want to submit this issue?")
         return []
 
@@ -61,7 +49,9 @@ class ActionSubmitIssueForm(Action):
 
         take_slots = [
             "issue_description",
-            "issue_label"
+            "issue_label",
+            "gh_username",
+            "version"
         ]
         data = {}
         for slot_name in take_slots:
@@ -69,8 +59,20 @@ class ActionSubmitIssueForm(Action):
 
         dispatcher.utter_message(str(data))
         dispatcher.utter_message("Your issue has been submitted, you can track it on: <LINK>")
+        return []
 
-        return [
-            SlotSet('issue_description', None),
-            SlotSet('issue_label', None)
+
+class ActionResetAllSlotsExceptUsername(Action):
+
+    def name(self) -> Text:
+        return "reset_all_slots_except_username"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        reset_slots = [
+            "issue_description",
+            "issue_label",
+            "version"
         ]
+        return [SlotSet(slot, None) for slot in reset_slots]

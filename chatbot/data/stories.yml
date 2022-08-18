@@ -7,36 +7,20 @@ stories:
     - intent: greet
     - action: utter_choose
 
-- story: submit_issue
+- story: User gives issue information and confirms submit
   steps:
-    - intent: submit_issue
-    - action: submit_issue_form
-    - active_loop: submit_issue_form
-    - slot_was_set:
-        - requested_slot: null  # This ensures that form is complete
+    - action: ask_confirm_submit_issue
     - intent: affirm
     - action: send_submit_issue_form
+    - action: reset_all_slots_except_username
     - action: utter_anything_else
 
-- story: submit_issue_cancel
+- story: User gives issue information but denies submit
   steps:
-    - intent: submit_issue
-    - action: submit_issue_form
-    - active_loop: submit_issue_form
-    - slot_was_set:
-        - requested_slot: null
+    - action: ask_confirm_submit_issue
     - intent: deny
     - action: utter_cancel_submit_issue
+    - action: reset_all_slots_except_username
     - action: utter_anything_else
 
-#- story: s_create_issue
-#  steps:
-#  - intent: submit_issue
-#  - action: utter_submit_issue
-#  - intent: tell_username
-#    entities:
-#      - username: "username"
-#  - slot_was_set:
-#      - username: true
-#  - action: read_username
 

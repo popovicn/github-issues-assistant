@@ -2,17 +2,16 @@ version: '3.1'
 intents:
 - bot_challenge
 - greet
-- submit_issue
-- tell_username
+- inform
 - affirm
 - deny
 - act_submit_issue
 - act_check_issue
 actions:
-- read_username
 - choose_action
 - send_submit_issue_form
 - ask_confirm_submit_issue
+- reset_all_slots_except_username
 responses:
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
@@ -33,32 +32,58 @@ responses:
     - text: You choose to submit issue
   utter_act_check_issue:
     - text: You choose to check issue
+  utter_ask_submit_issue_form_gh_username:
+    - text: What is your GitHub username?
   utter_ask_submit_issue_form_issue_description:
     - text: Please describe your issue
   utter_ask_submit_issue_form_issue_label:
     - text: Please enter issue label
-
+  utter_ask_submit_issue_form_version:
+    - text: Version number?
 entities:
-- username
+- version
+- gh_username
 - issue_description
 - issue_label
 
 slots:
-  username:
+  gh_username:
     type: text
+    influence_conversation: false
     mappings:
-    - type: from_entity
-      entity: username
-
+      - entity: gh_username
+        type: from_entity
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: gh_username
+      - type: from_text
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: gh_username
   issue_description:
     type: text
+    influence_conversation: false
     mappings:
       - type: from_text
         conditions:
           - active_loop: submit_issue_form
             requested_slot: issue_description
+  version:
+    type: text
+    influence_conversation: false
+    mappings:
+      - entity: version
+        type: from_entity
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: version
+      - type: from_text
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: version
   issue_label:
     type: text
+    influence_conversation: false
     mappings:
       - type: from_text
         conditions:
@@ -67,7 +92,9 @@ slots:
 forms:
   submit_issue_form:
     required_slots:
+        - gh_username
         - issue_description
+        - version
         - issue_label
 session_config:
   session_expiration_time: 60

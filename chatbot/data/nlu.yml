@@ -47,22 +47,42 @@ nlu:
     - not responding
     - i have a problem
 
-- intent: tell_username
+- intent: inform
   examples: |
-    - it's [johndoe](username)
-    - my username is [npopovic](username)
-    - [tomnomnom](username)
-    - [1337-code](username)
-    - i am [six2dez](username)
-    - username [mhmdiaa](username)
-    - user [gh-user-00934](username)
-    - i am Bob and my username is [b0bby](username)
-    - my github username is [torvalds](username)
-    - [fo0bar](username) is my username
-    - the [sv3nn](username)
-    - it is [npopovic](username)
-    - i am [barf00] on github
-    - my github userrname is [nenad-popovic--95](username)
+    - [popovicn](gh_username)
+    - [ntrzz](gh_username)
+    - [mhmdiaa](gh_username)
+    - my github username is [joohoi](gh_username)
+    - my username is [fo0b4r](gh_username)
+    - it is [six2dez](gh_username)
+    - i can't login
+    - table pagination is wrong
+    - list view returns all results
+    - module xyz is not working on version [v0.1.2](version)
+    - [v1.x.x](version)
+    - version is [12.3.42](version)
+    - version [4.2.x](version)
+    - [3.x](version)
+    - [fix](issue_label)
+    - [bugfix](issue_label)
+    - [feature](issue_label)
+
+#- intent: tell_username
+#  examples: |
+#    - it's [johndoe](username)
+#    - my username is [npopovic](username)
+#    - [tomnomnom](username)
+#    - [1337-code](username)
+#    - i am [six2dez](username)
+#    - username [mhmdiaa](username)
+#    - user [gh-user-00934](username)
+#    - i am Bob and my username is [b0bby](username)
+#    - my github username is [torvalds](username)
+#    - [fo0bar](username) is my username
+#    - the [sv3nn](username)
+#    - it is [npopovic](username)
+#    - i am [barf00] on github
+#    - my github userrname is [nenad-popovic--95](username)
 - intent: bot_challenge
   examples: |
     - are you a bot?

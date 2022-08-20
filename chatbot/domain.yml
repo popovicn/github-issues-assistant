@@ -7,6 +7,7 @@ intents:
 - deny
 - act_submit_issue
 - act_check_issue
+- nlu_fallback
 actions:
 - choose_action
 - send_submit_issue_form
@@ -19,15 +20,17 @@ responses:
     - text: Can I do anything else for you?
   utter_cancel_submit_issue:
     - text: Ok, your request is cancelled.
+  utter_please_rephrase:
+    - text: I'm sorry, I didn't understand that. Could you rephrase?
   utter_submit_issue:
     - text: What is your GitHub username?
   utter_choose:
     - text: "Do you need to submit new issue or check existing?"
       buttons:
         - title: "Submit new issue"
-          payload: /act_submit_issue'
+          payload: /act_submit_issue
         - title: "Check existing issue"
-          payload: /act_check_issue'
+          payload: /act_check_issue
   utter_act_submit_issue:
     - text: You choose to submit issue
   utter_act_check_issue:
@@ -56,10 +59,6 @@ slots:
         conditions:
           - active_loop: submit_issue_form
             requested_slot: gh_username
-      - type: from_text
-        conditions:
-          - active_loop: submit_issue_form
-            requested_slot: gh_username
   issue_description:
     type: text
     influence_conversation: false
@@ -77,15 +76,16 @@ slots:
         conditions:
           - active_loop: submit_issue_form
             requested_slot: version
-      - type: from_text
-        conditions:
-          - active_loop: submit_issue_form
-            requested_slot: version
+#      - type: from_text
+#        conditions:
+#          - active_loop: submit_issue_form
+#            requested_slot: version
   issue_label:
     type: text
     influence_conversation: false
     mappings:
-      - type: from_text
+      - entity: issue_label
+        type: from_entity
         conditions:
           - active_loop: submit_issue_form
             requested_slot: issue_label

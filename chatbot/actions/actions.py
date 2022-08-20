@@ -57,7 +57,6 @@ class ActionSubmitIssueForm(Action):
         for slot_name in take_slots:
             data[slot_name] = tracker.get_slot(slot_name)
 
-        dispatcher.utter_message(str(data))
         dispatcher.utter_message("Your issue has been submitted, you can track it on: <LINK>")
         return []
 

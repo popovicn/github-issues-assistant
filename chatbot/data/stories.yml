@@ -2,25 +2,18 @@ version: "3.1"
 
 stories:
 
-- story: story_1
+- story: Submit form happy path
   steps:
-    - intent: greet
-    - action: utter_choose
-
-- story: User gives issue information and confirms submit
-  steps:
+    - intent: act_submit_issue
+    - action: submit_issue_form
+    - active_loop: submit_issue_form
+    - action: submit_issue_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
     - action: ask_confirm_submit_issue
     - intent: affirm
     - action: send_submit_issue_form
-    - action: reset_all_slots_except_username
     - action: utter_anything_else
-
-- story: User gives issue information but denies submit
-  steps:
-    - action: ask_confirm_submit_issue
-    - intent: deny
-    - action: utter_cancel_submit_issue
     - action: reset_all_slots_except_username
-    - action: utter_anything_else
-
-
+    - action: action_listen

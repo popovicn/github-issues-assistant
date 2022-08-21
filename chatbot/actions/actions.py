@@ -1,8 +1,34 @@
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, UserUtteranceReverted, ActionExecuted, BotUttered, FollowupAction
 from rasa_sdk.executor import CollectingDispatcher
+
+
+class ActionDefaultFallback(Action):
+    """Executes the fallback action and goes back to the previous state
+    of the dialogue"""
+
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        active_form_name = tracker.active_loop.get("name")
+        if active_form_name == "submit_issue_form":
+            events = [
+                UserUtteranceReverted(),    # Revert user message which led to fallback.
+                BotUttered("Sorry, I didn't understand that."),
+            ]
+        else:
+            events = [
+                FollowupAction("action_listen")
+            ]
+        return events
 
 
 class ActionChooseAction(Action):
@@ -36,7 +62,7 @@ class UtterConfirmSubmitIssue(Action):
             slot_val = tracker.get_slot(slot_name)
             dispatcher.utter_message(text=f">  {slot_name}: {slot_val}")
         dispatcher.utter_message("Do you want to submit this issue?")
-        return []
+        return [SlotSet("slot_validate_form", True)]
 
 
 class ActionSubmitIssueForm(Action):
@@ -72,6 +98,8 @@ class ActionResetAllSlotsExceptUsername(Action):
         reset_slots = [
             "issue_description",
             "issue_label",
-            "version"
+            "version",
         ]
-        return [SlotSet(slot, None) for slot in reset_slots]
+        events = [SlotSet(slot, None) for slot in reset_slots]
+        events.append(SlotSet("slot_validate_form", False))
+        return events

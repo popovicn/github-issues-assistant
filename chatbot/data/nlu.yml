@@ -17,10 +17,8 @@ nlu:
     - n
     - never
     - I don't think so
-    - don't like that
     - no way
     - not really
-    - i changed my mind
     - actually no
     - no sorry
 - intent: greet
@@ -30,6 +28,19 @@ nlu:
     - hello there
     - hey
     - hi bot
+- intent: cancel_op
+  examples: |
+    - i want to cancel this
+    - cancel
+    - stop
+    - i changed my mind
+    - restart
+    - stop this
+    - sorry i made a mistake, i dont want to do this
+    - i don't want to do this
+    - this was a mistake
+    - i do not want to submit an issue anymore
+    - sorry i don't want to do this
 - intent: act_submit_issue
   examples: |
     - i want to submit an issue

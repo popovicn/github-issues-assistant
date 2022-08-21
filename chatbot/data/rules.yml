@@ -18,12 +18,14 @@ rules:
     - action: utter_act_check_issue
 
 - rule: Activate submit issue form
+  condition:
+    - active_loop: null
   steps:
   - intent: act_submit_issue
   - action: submit_issue_form
   - active_loop: submit_issue_form
 
-- rule: Deactivate submit issue form
+- rule: Deactivate submit issue form when completed
   condition:
   # Condition that form is active.
   - active_loop: submit_issue_form
@@ -36,13 +38,23 @@ rules:
   # The actions we want to run when the form is submitted.
   - action: ask_confirm_submit_issue
 
-- rule: Deactivate submit issue form
+- rule: Confirm send submit form
   condition:
-  - active_loop: submit_issue_form
+  - slot_was_set:
+      - slot_validate_form: true
   steps:
-  # Form is deactivated
-  - intent: bot_challenge
-  - action: utter_iamabot
-  - action: submit_issue_form
-  - active_loop: submit_issue_form
+  - intent: affirm
+  - action: send_submit_issue_form
+  - action: utter_anything_else
+  - action: reset_all_slots_except_username
+
+- rule: Cancell send submit form
+  condition:
+  - slot_was_set:
+      - slot_validate_form: true
+  steps:
+  - intent: deny
+  - action: utter_cancel_submit_issue
+  - action: utter_anything_else
+  - action: reset_all_slots_except_username
 

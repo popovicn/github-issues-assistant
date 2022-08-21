@@ -5,6 +5,7 @@ intents:
 - inform
 - affirm
 - deny
+- cancel_op
 - act_submit_issue
 - act_check_issue
 - nlu_fallback
@@ -13,7 +14,10 @@ actions:
 - send_submit_issue_form
 - ask_confirm_submit_issue
 - reset_all_slots_except_username
+- action_default_fallback
 responses:
+  utter_default:
+    - text: Sorry, I didn't understand that.
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
   utter_anything_else:
@@ -50,6 +54,10 @@ entities:
 - issue_label
 
 slots:
+  slot_validate_form:
+    type: bool
+    mappings:
+      - type: custom
   gh_username:
     type: text
     influence_conversation: false

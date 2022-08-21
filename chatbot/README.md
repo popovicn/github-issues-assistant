@@ -19,3 +19,5 @@ rasa run actions
 ### Done:
 - When form value is not set, instead of listen only, say I don't understand and then listen 
 - Full submit issue story
+
+![](graph.html)

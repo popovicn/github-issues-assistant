@@ -38,6 +38,20 @@ rules:
   # The actions we want to run when the form is submitted.
   - action: ask_confirm_submit_issue
 
+# TODO this does not work
+- rule: Deactivate submit issue form on cancel
+  condition:
+    - active_loop: submit_issue_form
+  steps:
+    - intent: cancel_op
+    - action: submit_issue_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username
+
 - rule: Confirm send submit form
   condition:
   - slot_was_set:
@@ -51,10 +65,12 @@ rules:
 - rule: Cancell send submit form
   condition:
   - slot_was_set:
-      - slot_validate_form: true
+    - slot_validate_form: true
   steps:
-  - intent: deny
-  - action: utter_cancel_submit_issue
-  - action: utter_anything_else
-  - action: reset_all_slots_except_username
+    - or:
+      - intent: deny
+      - intent: cancel_op
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username
 

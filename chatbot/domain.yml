@@ -67,6 +67,9 @@ slots:
         conditions:
           - active_loop: submit_issue_form
             requested_slot: gh_username
+      - entity: gh_username
+        type: from_entity
+        intent: act_submit_issue
   issue_description:
     type: text
     influence_conversation: false

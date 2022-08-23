@@ -57,6 +57,19 @@ nlu:
     - error when loading
     - not responding
     - i have a problem
+    - hi i am [Radolumbo](gh_username) and i want to submit an issue
+    - i want to submit an issue, my username is [ChaosInTheCRD](gh_username)
+    - my github username is [descrepes](gh_username) and i have a problem
+    - my username is [thundergolfer](gh_username), your module seems to be broken
+    - i can't access your site, i am [changhc](gh_username)
+    - there is error when loading, my username is [sandeepbhojwani](gh_username)
+    - i, [foobarbecue](gh_username), have an issue
+    - not responding, by the way my github username is [terrytangyuan](gh_username)
+    - i am [JPZ13](gh_username) and i think there is a bug
+    - i'm [posquit0](gh_username), unable to execute action
+    - i can't access module, username [alexcapras](gh_username)
+    - can't log in, my username is [thesuperzapper](gh_username)
+
 
 - intent: inform
   examples: |

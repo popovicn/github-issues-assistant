@@ -15,6 +15,7 @@ actions:
 - ask_confirm_submit_issue
 - reset_all_slots_except_username
 - action_default_fallback
+- action_deactive_loop
 responses:
   utter_default:
     - text: Sorry, I didn't understand that.
@@ -46,7 +47,7 @@ responses:
   utter_ask_submit_issue_form_issue_label:
     - text: Please enter issue label
   utter_ask_submit_issue_form_version:
-    - text: Version number?
+    - text: Which version of the product are you using?
 entities:
 - version
 - gh_username
@@ -60,7 +61,7 @@ slots:
       - type: custom
   gh_username:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
       - entity: gh_username
         type: from_entity
@@ -72,7 +73,7 @@ slots:
         intent: act_submit_issue
   issue_description:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
       - type: from_text
         conditions:
@@ -80,20 +81,16 @@ slots:
             requested_slot: issue_description
   version:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
       - entity: version
         type: from_entity
         conditions:
           - active_loop: submit_issue_form
             requested_slot: version
-#      - type: from_text
-#        conditions:
-#          - active_loop: submit_issue_form
-#            requested_slot: version
   issue_label:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
       - entity: issue_label
         type: from_entity

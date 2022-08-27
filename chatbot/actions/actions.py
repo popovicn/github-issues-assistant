@@ -1,7 +1,8 @@
+import json
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, UserUtteranceReverted, BotUttered, FollowupAction
+from rasa_sdk.events import SlotSet, UserUtteranceReverted, BotUttered, FollowupAction, ActiveLoop
 from rasa_sdk.executor import CollectingDispatcher
 
 
@@ -101,5 +102,10 @@ class ActionResetAllSlotsExceptUsername(Action):
             "version",
         ]
         events = [SlotSet(slot, None) for slot in reset_slots]
-        events.append(SlotSet("slot_validate_form", False))
+        events.extend([
+            SlotSet("slot_validate_form", False),
+            ActiveLoop(None),
+            SlotSet("requested_slot", None)
+        ])
+        print(json.dumps(events, indent=4))
         return events

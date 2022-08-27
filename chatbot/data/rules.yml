@@ -48,12 +48,11 @@ rules:
   - action: utter_anything_else
   - action: reset_all_slots_except_username
 
-- rule: Cancell form whenever # TODO still doesnt work corerectly
+- rule: Cancell form whenever
   condition:
     - active_loop: submit_issue_form
   steps:
     - intent: cancel_op
-    - action: action_deactivate_loop
     - action: utter_cancel_submit_issue
     - action: utter_anything_else
     - action: reset_all_slots_except_username

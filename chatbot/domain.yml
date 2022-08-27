@@ -76,6 +76,7 @@ slots:
     influence_conversation: true
     mappings:
       - type: from_text
+        not_intent: cancel_op
         conditions:
           - active_loop: submit_issue_form
             requested_slot: issue_description
@@ -85,6 +86,7 @@ slots:
     mappings:
       - entity: version
         type: from_entity
+        not_intent: cancel_op
         conditions:
           - active_loop: submit_issue_form
             requested_slot: version
@@ -93,6 +95,7 @@ slots:
     influence_conversation: true
     mappings:
       - entity: issue_label
+        not_intent: cancel_op
         type: from_entity
         conditions:
           - active_loop: submit_issue_form

@@ -19,18 +19,20 @@ class GithubClient:
             Authorization=f"Bearer {self.token}"
         )
 
-    def _fmt_issue_body(self, **kwargs):
-        body_md_lines = []
+    def _fmt_issue_body(self, user, **kwargs):
+        body_md_lines = [
+            f"_Issue submitted by user **{user}**_"
+        ]
         [body_md_lines.extend([f"#### {k}", v]) for k, v in kwargs.items()]
         body_md = "\n".join(body_md_lines)
         return body_md
 
-    def create_issue(self, title, **kwargs):
+    def create_issue(self, user, title, **kwargs):
         data = dict(
             title=title,
-            body=self._fmt_issue_body(**kwargs),
+            body=self._fmt_issue_body(user, **kwargs),
             labels=[
-                "from/chatbot1",
+                "from/chatbot",
             ]
         )
         url = f"https://api.github.com/repos/{self.repo}/issues"
@@ -60,5 +62,5 @@ if __name__ == '__main__':
         "Description": title,
         "Version": "v0.1.2"
     }
-    gc.create_issue(title=title, **qs)
+    gc.create_issue(user="test-user", title=title, **qs)
     print(gc.search_issue(title))

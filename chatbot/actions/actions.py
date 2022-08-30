@@ -109,3 +109,21 @@ class ActionResetAllSlotsExceptUsername(Action):
         ])
         print(json.dumps(events, indent=4))
         return events
+
+
+class ActionCheckIssueStatus(Action):
+    def name(self) -> Text:
+        return "action_check_issue"
+
+    def _get_issues(self):
+        return {
+            "123": "solved",
+            "124": "open",
+            "125": "declined"
+        }
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        issue_id = tracker.get_slot("issue_id")
+        dispatcher.utter_message(f"Issue {issue_id}")
+        return []

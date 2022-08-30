@@ -7,7 +7,7 @@ intents:
 - deny
 - cancel_op
 - act_submit_issue
-- act_check_issue
+- op_check_issue
 - nlu_fallback
 actions:
 - choose_action
@@ -16,6 +16,7 @@ actions:
 - reset_all_slots_except_username
 - action_default_fallback
 - action_deactive_loop
+- action_check_issue
 responses:
   utter_default:
     - text: Sorry, I didn't understand that.
@@ -35,11 +36,9 @@ responses:
         - title: "Submit new issue"
           payload: /act_submit_issue
         - title: "Check existing issue"
-          payload: /act_check_issue
+          payload: /op_check_issue
   utter_act_submit_issue:
     - text: You choose to submit issue
-  utter_act_check_issue:
-    - text: You choose to check issue
   utter_ask_submit_issue_form_gh_username:
     - text: What is your GitHub username?
   utter_ask_submit_issue_form_issue_description:
@@ -48,11 +47,14 @@ responses:
     - text: Please enter issue label
   utter_ask_submit_issue_form_version:
     - text: Which version of the product are you using?
+  utter_ask_issue_id:
+    - text: What is the number of issue you want to check?
 entities:
 - version
 - gh_username
 - issue_description
 - issue_label
+- issue_id
 
 slots:
   slot_validate_form:
@@ -90,6 +92,13 @@ slots:
         conditions:
           - active_loop: submit_issue_form
             requested_slot: version
+  issue_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - entity: issue_id
+        type: from_entity
+
   issue_label:
     type: text
     influence_conversation: true

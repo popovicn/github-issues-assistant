@@ -17,3 +17,19 @@ stories:
     - action: utter_anything_else
     - action: reset_all_slots_except_username
     - action: action_listen
+
+- story: Check issue happy path
+  steps:
+    - intent: op_check_issue
+    - slot_was_set:
+        - issue_id: 78
+    - action: action_check_issue
+
+- story: Check issue ask for issue id
+  steps:
+    - intent: op_check_issue
+    - action: utter_ask_issue_id
+    - intent: inform
+    - slot_was_set:
+        - issue_id: 78
+    - action: action_check_issue

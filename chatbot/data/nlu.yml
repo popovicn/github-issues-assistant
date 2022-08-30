@@ -1,5 +1,8 @@
 version: "3.1"
 nlu:
+- regex: issue_id
+  examples: |
+    - \d+
 
 - intent: affirm
   examples: |
@@ -115,23 +118,12 @@ nlu:
     - [fix](issue_label)
     - [bugfix](issue_label)
     - [feature](issue_label)
+    - \#[42](issue_id)
+    - [123](issue_id)
+    - issue \#[7](issue_id)
+    - issue number [30](issue_id)
+    - issue number \#[845](issue_id)
 
-#- intent: tell_username
-#  examples: |
-#    - it's [johndoe](username)
-#    - my username is [npopovic](username)
-#    - [tomnomnom](username)
-#    - [1337-code](username)
-#    - i am [six2dez](username)
-#    - username [mhmdiaa](username)
-#    - user [gh-user-00934](username)
-#    - i am Bob and my username is [b0bby](username)
-#    - my github username is [torvalds](username)
-#    - [fo0bar](username) is my username
-#    - the [sv3nn](username)
-#    - it is [npopovic](username)
-#    - i am [barf00] on github
-#    - my github userrname is [nenad-popovic--95](username)
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -140,3 +132,17 @@ nlu:
     - am I talking to a human?
     - is this a bot or a human
     - human or bot
+
+- intent: op_check_issue
+  examples: |
+    - Hi i'd like to check_issue
+    - Hi i'd like to check issue with id (35)[issue_id]
+    - what's the status of an issue
+    - what is the status of issue (432)[issue_id]
+    - issue \#(10)[issue_id] status?
+    - what is happening with my issue?
+    - i submitted issue \#(27)[issue_id] a while ago, is it solved?
+    - has issue (35)[issue_id] been solved?
+    - check issue
+    - check issue (501)[issue_id]
+    - check issue \#(43)[issue_id]

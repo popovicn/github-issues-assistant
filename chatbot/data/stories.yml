@@ -21,8 +21,10 @@ stories:
 - story: Check issue happy path
   steps:
     - intent: op_check_issue
+      entities:
+        - issue_id: 123
     - slot_was_set:
-        - issue_id: 78
+        - issue_id: 123
     - action: action_check_issue
 
 - story: Check issue ask for issue id
@@ -30,6 +32,8 @@ stories:
     - intent: op_check_issue
     - action: utter_ask_issue_id
     - intent: inform
+      entities:
+        - issue_id: 78
     - slot_was_set:
         - issue_id: 78
     - action: action_check_issue

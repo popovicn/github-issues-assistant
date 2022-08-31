@@ -144,5 +144,11 @@ nlu:
     - i submitted issue \#(27)[issue_id] a while ago, is it solved?
     - has issue (35)[issue_id] been solved?
     - check issue
-    - check issue (501)[issue_id]
+    - i want to check issue (501)[issue_id]
+    - i want to check issue number (12)[issue_id]
+    - i want to check issue \#(44)[issue_id]
     - check issue \#(43)[issue_id]
+    - what is status of issue (222)[issue_id]
+    - status of issue \#(254)[issue_id]
+    - issue [254](issue_id) status
+    - issue status \#[298](issue_id)

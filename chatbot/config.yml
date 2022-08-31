@@ -14,7 +14,7 @@ pipeline:
     # language model to load
     model: "en_core_web_md"
   - name: WhitespaceTokenizer
-  - name: RegexFeaturizer
+  - name: RegexEntityExtractor  # For rule based regexes
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
@@ -28,7 +28,7 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: FallbackClassifier
-    threshold: 0.9
+    threshold: 0.5
     ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.

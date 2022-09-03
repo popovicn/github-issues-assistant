@@ -9,6 +9,7 @@ intents:
 - inform
 - nlu_fallback
 - op_check_issue
+- tell_issue_id
 actions:
 - action_check_issue
 - action_deactive_loop
@@ -50,7 +51,7 @@ responses:
   utter_ask_submit_issue_form_version:
   - text: Which version of the product are you using?
   utter_ask_issue_id:
-  - text: What is the number of issue you want to check?
+    - text: What is the number of issue?
 entities:
 - issue_id
 - version
@@ -109,6 +110,12 @@ slots:
       conditions:
       - active_loop: submit_issue_form
         requested_slot: issue_label
+  FLAG_CHECK_ISSUE_ACTIVE:
+    type: any
+    mappings:
+      - type: from_intent
+        value: true
+        intent: op_check_issue
 forms:
   submit_issue_form:
     required_slots:

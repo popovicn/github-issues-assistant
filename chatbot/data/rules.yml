@@ -69,14 +69,31 @@ rules:
     - action: utter_anything_else
     - action: reset_all_slots_except_username
 
-#- rule: Check issue
-#  steps:
-#    - intent: op_check_issue
-#    - slot_was_set:
-#        - issue_id: 123
-#    - action: action_check_issue
-#    - slot_was_set:
-#      - issue_id: null
-#    - action: utter_anything_else
+- rule: Ask for issue on check issue
+  steps:
+    - intent: op_check_issue
+    - slot_was_set:
+        - issue_id: null
+    - action: utter_ask_issue_id
 
+- rule: Check issue
+  steps:
+    - or:
+        - intent: op_check_issue
+        - intent: tell_issue_id
+    - slot_was_set:
+        - issue_id: 123
+    - action: action_check_issue
+    - slot_was_set:
+      - issue_id: null
+    - action: utter_anything_else
 
+- rule: Cancell check issue
+  condition:
+  - slot_was_set:
+    - FLAG_CHECK_ISSUE_ACTIVE: true
+  steps:
+    - intent: cancel_op
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username

@@ -112,11 +112,6 @@ nlu:
     - [fix](issue_label)
     - [bugfix](issue_label)
     - [feature](issue_label)
-    - \#[42](issue_id)
-    - [123](issue_id)
-    - issue \#[7](issue_id)
-    - issue number [30](issue_id)
-    - issue number \#[845](issue_id)
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -127,15 +122,11 @@ nlu:
     - human or bot
 - intent: op_check_issue
   examples: |
-    - Hi i'd like to check_issue
     - Hi i'd like to check issue with id (35)[issue_id]
-    - what's the status of an issue
     - what is the status of issue (432)[issue_id]
     - issue \#(10)[issue_id] status?
-    - what is happening with my issue?
     - i submitted issue \#(27)[issue_id] a while ago, is it solved?
     - has issue (35)[issue_id] been solved?
-    - check issue
     - i want to check issue (501)[issue_id]
     - i want to check issue number (12)[issue_id]
     - i want to check issue \#(44)[issue_id]
@@ -144,7 +135,19 @@ nlu:
     - status of issue \#(254)[issue_id]
     - issue [254](issue_id) status
     - issue status \#[298](issue_id)
-    - check issue #[123](issue_id)
+    - check issue \#[123](issue_id)
+- intent: tell_issue_id
+  examples: |
+    - \#[88](issue_id)
+    - \#[576](issue_id)
+    - [209](issue_id)
+    - [30](issue_id)
+    - the issue is \#[94](issue_id)
+    - the issue is [14](issue_id)
+    - issue \#[1](issue_id)
+    - issue [34](issue_id)
+    - issue number [433](issue_id)
+    - issue number \#[299](issue_id)
 - regex: issue_id
   examples: |
     - \d+

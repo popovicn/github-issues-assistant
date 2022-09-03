@@ -96,18 +96,20 @@ class ActionResetAllSlotsExceptUsername(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        # Slots from submit issue form
         reset_slots = [
             "issue_description",
             "issue_label",
             "version",
         ]
         events = [SlotSet(slot, None) for slot in reset_slots]
+        # Standard slots
         events.extend([
             SlotSet("slot_validate_form", False),
+            SlotSet("FLAG_CHECK_ISSUE_ACTIVE", None),
             ActiveLoop(None),
             SlotSet("requested_slot", None)
         ])
-        print(json.dumps(events, indent=4))
         return events
 
 

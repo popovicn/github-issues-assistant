@@ -1,9 +1,5 @@
 version: "3.1"
 nlu:
-- regex: issue_id
-  examples: |
-    - \d+
-
 - intent: affirm
   examples: |
     - yes
@@ -72,8 +68,6 @@ nlu:
     - i'm [posquit0](gh_username), unable to execute action
     - i can't access module, username [alexcapras](gh_username)
     - can't log in, my username is [thesuperzapper](gh_username)
-
-
 - intent: inform
   examples: |
     - [popovicn](gh_username)
@@ -123,7 +117,6 @@ nlu:
     - issue \#[7](issue_id)
     - issue number [30](issue_id)
     - issue number \#[845](issue_id)
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -132,7 +125,6 @@ nlu:
     - am I talking to a human?
     - is this a bot or a human
     - human or bot
-
 - intent: op_check_issue
   examples: |
     - Hi i'd like to check_issue
@@ -152,3 +144,7 @@ nlu:
     - status of issue \#(254)[issue_id]
     - issue [254](issue_id) status
     - issue status \#[298](issue_id)
+    - check issue #[123](issue_id)
+- regex: issue_id
+  examples: |
+    - \d+

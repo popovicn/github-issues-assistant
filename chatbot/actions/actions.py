@@ -125,5 +125,10 @@ class ActionCheckIssueStatus(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         issue_id = tracker.get_slot("issue_id")
-        dispatcher.utter_message(f"Issue {issue_id}")
-        return []
+        issues_data = self._get_issues()
+        if issue_id in issues_data:
+            message = f"Issue #{issue_id} is {issues_data[issue_id]}"
+        else:
+            message = f"Issue #{issue_id} doesn't exist."
+        dispatcher.utter_message(message)
+        return [SlotSet("issue_id", None)]

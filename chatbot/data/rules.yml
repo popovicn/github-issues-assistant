@@ -69,3 +69,14 @@ rules:
     - action: utter_anything_else
     - action: reset_all_slots_except_username
 
+#- rule: Check issue
+#  steps:
+#    - intent: op_check_issue
+#    - slot_was_set:
+#        - issue_id: 123
+#    - action: action_check_issue
+#    - slot_was_set:
+#      - issue_id: null
+#    - action: utter_anything_else
+
+

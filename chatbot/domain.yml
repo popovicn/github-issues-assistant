@@ -26,7 +26,7 @@ responses:
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_anything_else:
-  - text: Can I do anything else for you?
+  - text: Is there something else I can help you with?
   utter_cancel_submit_issue:
   - text: Ok, your request is cancelled.
   utter_please_rephrase:
@@ -34,14 +34,13 @@ responses:
   utter_submit_issue:
   - text: What is your GitHub username?
   utter_choose:
-  - text: Do you need to submit new issue or check existing?
+  - text: |
+      I can help you submit new or check status of existing issue.
     buttons:
-    - title: Submit new issue
+    - title: I want to submit new issue
       payload: /act_submit_issue
-    - title: Check existing issue
+    - title: I want to check existing issue
       payload: /op_check_issue
-  utter_act_submit_issue:
-  - text: You choose to submit issue
   utter_ask_submit_issue_form_gh_username:
   - text: What is your GitHub username?
   utter_ask_submit_issue_form_issue_description:
@@ -51,7 +50,7 @@ responses:
   utter_ask_submit_issue_form_version:
   - text: Which version of the product are you using?
   utter_ask_issue_id:
-    - text: What is the number of issue?
+    - text: What is the number of an issue you are interested in?
 entities:
 - issue_id
 - version

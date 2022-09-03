@@ -10,6 +10,7 @@ class GithubClient:
     def __init__(self):
         self.token = os.environ.get("GIA_GITHUB_TOKEN")
         self.repo = os.environ.get("GIA_GITHUB_REPO").strip("/")
+        self.mock = os.environ.get("GIA_ENV") != "production"
         print(self.token, self.repo)
 
     @property
@@ -28,6 +29,8 @@ class GithubClient:
         return body_md
 
     def create_issue(self, user, title, **kwargs):
+        if self.mock:
+            return "<mock url>"
         data = dict(
             title=title,
             body=self._fmt_issue_body(user, **kwargs),
@@ -39,7 +42,10 @@ class GithubClient:
         response = requests.post(url,
                                  data=json.dumps(data),
                                  headers=self._headers)
-        print(response)
+        if response.status_code == 201:
+            return response.json().get("url")
+        else:
+            return None
 
     def search_issue(self, query):
         query += f" repo:{self.repo}"
@@ -63,4 +69,4 @@ if __name__ == '__main__':
         "Version": "v0.1.2"
     }
     gc.create_issue(user="test-user", title=title, **qs)
-    print(gc.search_issue(title))
+    # print(gc.search_issue(title))

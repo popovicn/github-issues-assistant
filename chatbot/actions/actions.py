@@ -1,9 +1,10 @@
-import json
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, UserUtteranceReverted, BotUttered, FollowupAction, ActiveLoop
 from rasa_sdk.executor import CollectingDispatcher
+
+from github_client import GithubClient
 
 
 class ActionDefaultFallback(Action):
@@ -74,17 +75,27 @@ class ActionSubmitIssueForm(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        username = tracker.get_slot("gh_username")
+        title = tracker.get_slot("issue_description")
         take_slots = [
-            "issue_description",
+            # "gh_username",
+            # "issue_description",
             "issue_label",
-            "gh_username",
             "version"
         ]
         data = {}
         for slot_name in take_slots:
             data[slot_name] = tracker.get_slot(slot_name)
 
-        dispatcher.utter_message("Your issue has been submitted, you can track it on: <LINK>")
+        gc = GithubClient()
+        issue_url = gc.create_issue(user=username, title=title, **data)
+        if issue_url:
+            dispatcher.utter_message(
+                f"Your issue has been submitted, you can track it here: {issue_url}")
+        else:
+            dispatcher.utter_message(
+                "Sorry, your issue submission failed. Please contact support."
+            )
         return []
 
 

@@ -51,7 +51,6 @@ class GithubClient:
         query += f" repo:{self.repo}"
         q = urlencode({"q": query})
         url = f"https://api.github.com/search/issues?{q}"
-        # print(url)
         response = requests.get(url, headers=self._headers)
         data = response.json()
         if data.get('total_count'):

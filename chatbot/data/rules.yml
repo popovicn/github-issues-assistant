@@ -88,12 +88,13 @@ rules:
       - issue_id: null
     - action: utter_anything_else
 
-- rule: Cancell check issue
+- rule: Validate existing issue
   condition:
-  - slot_was_set:
-    - FLAG_CHECK_ISSUE_ACTIVE: true
+    - active_loop: submit_issue_form
+    - slot_was_set:
+        - CONTINUE_SUBMIT_ISSUE: false
   steps:
-    - intent: cancel_op
+    - intent: deny
     - action: utter_cancel_submit_issue
     - action: utter_anything_else
     - action: reset_all_slots_except_username

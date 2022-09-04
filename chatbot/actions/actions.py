@@ -1,10 +1,11 @@
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.events import SlotSet, UserUtteranceReverted, BotUttered, FollowupAction, ActiveLoop
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
 
-from github_client import GithubClient
+from .github_client import GithubClient
 
 
 class ActionDefaultFallback(Action):
@@ -33,17 +34,42 @@ class ActionDefaultFallback(Action):
         return events
 
 
-class ActionChooseAction(Action):
-
+class ValidateSubmitIssueForm(FormValidationAction):
     def name(self) -> Text:
-        return "choose_action"
+        return "validate_submit_issue_form"
 
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def _issue_exist(self, description):
+        # TODO check github
+        return True, "Existing issue description"
 
-        opt = tracker.get_slot("ch_action")
-        dispatcher.utter_message(text=f"You choose option: {opt}")
-        return []
+    async def required_slots(
+        self,
+        domain_slots: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> List[Text]:
+        additional_slots = []
+        if tracker.slots.get("FLAG_VALIDATE_ISSUE") is True:
+            additional_slots.append("CONTINUE_SUBMIT_ISSUE")
+        return additional_slots + domain_slots
+
+    def validate_issue_description(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        possible_duplicate, issues = self._issue_exist(slot_value)
+        if possible_duplicate:
+            dispatcher.utter_message("This issue already exits")
+            return {
+                "issue_description": slot_value,
+                "FLAG_VALIDATE_ISSUE": True
+            }
+        else:
+            return {"issue_description": slot_value}
 
 
 class UtterConfirmSubmitIssue(Action):
@@ -62,7 +88,7 @@ class UtterConfirmSubmitIssue(Action):
         dispatcher.utter_message("You provided following information:")
         for slot_name in take_slots:
             slot_val = tracker.get_slot(slot_name)
-            dispatcher.utter_message(text=f">  {slot_name}: {slot_val}")
+            dispatcher.utter_message(text=f"  - {slot_name}: {slot_val}")
         dispatcher.utter_message("Do you want to submit this issue?")
         return [SlotSet("slot_validate_form", True)]
 
@@ -112,6 +138,9 @@ class ActionResetAllSlotsExceptUsername(Action):
             "issue_description",
             "issue_label",
             "version",
+            "CONTINUE_SUBMIT_ISSUE",
+            "FLAG_VALIDATE_ISSUE",
+            "CONTINUE_SUBMIT_ISSUE"
         ]
         events = [SlotSet(slot, None) for slot in reset_slots]
         # Standard slots

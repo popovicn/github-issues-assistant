@@ -15,7 +15,8 @@ actions:
 - action_deactive_loop
 - action_default_fallback
 - ask_confirm_submit_issue
-- choose_action
+- validate_submit_issue_form
+- utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE
 - reset_all_slots_except_username
 - send_submit_issue_form
 - utter_anything_else
@@ -37,10 +38,10 @@ responses:
   - text: |
       I can help you submit new or check status of existing issue.
     buttons:
-    - title: I want to submit new issue
-      payload: /act_submit_issue
-    - title: I want to check existing issue
-      payload: /op_check_issue
+      - title: I want to submit new issue
+        payload: /act_submit_issue
+      - title: I want to check existing issue
+        payload: /op_check_issue
   utter_ask_submit_issue_form_gh_username:
   - text: What is your GitHub username?
   utter_ask_submit_issue_form_issue_description:
@@ -49,6 +50,14 @@ responses:
   - text: Please enter issue label
   utter_ask_submit_issue_form_version:
   - text: Which version of the product are you using?
+  utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE:
+    - text: |
+        Do you want to continue submitting this issue?
+      buttons:
+        - title: Yes, I want to continue
+          payload: /affirm
+        - title: No, my issue is a duplicate
+          payload: /cancel_op
   utter_ask_issue_id:
     - text: What is the number of an issue you are interested in?
 entities:
@@ -115,6 +124,22 @@ slots:
       - type: from_intent
         value: true
         intent: op_check_issue
+  FLAG_VALIDATE_ISSUE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  CONTINUE_SUBMIT_ISSUE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        value: true
+        intent: affirm
+        conditions:
+          - active_loop: submit_issue_form
+            requested_slot: CONTINUE_SUBMIT_ISSUE
+
 forms:
   submit_issue_form:
     required_slots:

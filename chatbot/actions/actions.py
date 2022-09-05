@@ -38,10 +38,6 @@ class ValidateSubmitIssueForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_submit_issue_form"
 
-    def _issue_exist(self, description):
-        # TODO check github
-        return True, "Existing issue description"
-
     async def required_slots(
         self,
         domain_slots: List[Text],
@@ -61,9 +57,15 @@ class ValidateSubmitIssueForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        possible_duplicate, issues = self._issue_exist(slot_value)
-        if possible_duplicate:
-            dispatcher.utter_message("This issue already exits")
+        gc = GithubClient()
+        issues = gc.search_issue(slot_value)
+        if issues:
+            if len(issues) > 1:
+                dispatcher.utter_message("Seems like similar issues exist:")
+            else:
+                dispatcher.utter_message("Seems like similar issue exists:")
+            for issue in issues:
+                dispatcher.utter_message(issue.short_description)
             return {
                 "issue_description": slot_value,
                 "FLAG_VALIDATE_ISSUE": True
@@ -157,19 +159,13 @@ class ActionCheckIssueStatus(Action):
     def name(self) -> Text:
         return "action_check_issue"
 
-    def _get_issues(self):
-        return {
-            "123": "solved",
-            "124": "open",
-            "125": "declined"
-        }
-
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         issue_id = tracker.get_slot("issue_id")
-        issues_data = self._get_issues()
-        if issue_id in issues_data:
-            message = f"Issue #{issue_id} is {issues_data[issue_id]}"
+        gc = GithubClient()
+        issue = gc.get_issue(issue_id)
+        if issue:
+            message = issue.description
         else:
             message = f"Issue #{issue_id} doesn't exist."
         dispatcher.utter_message(message)

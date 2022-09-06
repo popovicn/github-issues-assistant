@@ -1,6 +1,6 @@
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker, FormValidationAction
+from rasa_sdk import Action, Tracker, FormValidationAction, ValidationAction
 from rasa_sdk.events import SlotSet, UserUtteranceReverted, BotUttered, FollowupAction, ActiveLoop
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
@@ -37,6 +37,21 @@ class ActionDefaultFallback(Action):
         return events
 
 
+class ValidatePredefinedSlots(ValidationAction):
+    def validate_issue_id(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        if isinstance(slot_value, str):
+            # Strip optional # before issue number
+            return {"issue_id": slot_value.strip("#")}
+        else:
+            return {"issue_id": None}
+
+
 class ValidateSubmitIssueForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_submit_issue_form"
@@ -52,8 +67,6 @@ class ValidateSubmitIssueForm(FormValidationAction):
         if tracker.slots.get("FLAG_VALIDATE_ISSUE") is True:
             additional_slots.append("CONTINUE_SUBMIT_ISSUE")
         return additional_slots + domain_slots
-
-    # TODO validate_issue_id, #12 -> 12
 
     def validate_issue_description(
         self,

@@ -16,6 +16,8 @@ actions:
 - action_default_fallback
 - ask_confirm_submit_issue
 - validate_submit_issue_form
+- action_validate_slot_mappings
+- validate_issue_id
 - utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE
 - reset_all_slots_except_username
 - send_submit_issue_form

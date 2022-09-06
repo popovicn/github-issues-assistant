@@ -37,7 +37,7 @@ responses:
   utter_submit_issue:
   - text: What is your GitHub username?
   utter_choose:
-  - text: I can help you submit new or check status of existing issue
+  - text: I can help you submit new or check status of existing issue.
     buttons:
       - title: I want to submit new issue
         payload: /op_submit_issue
@@ -52,8 +52,7 @@ responses:
   utter_ask_submit_issue_form_version:
   - text: Which version of the product are you using?
   utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE:
-    - text: |
-        Do you want to continue submitting this issue?
+    - text: Are you sure you want to submit this issue?
       buttons:
         - title: Yes, I want to continue
           payload: /affirm

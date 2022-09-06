@@ -1,3 +1,4 @@
 rasa==3.2.6
 PyGithub==1.55
 spacy==3.4.1
+PyYAML==6.0

@@ -27,7 +27,7 @@ nlu:
     - hello there
     - hey
     - hi bot
-- intent: cancel_op
+- intent: cancel
   examples: |
     - i want to cancel this
     - cancel

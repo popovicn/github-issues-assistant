@@ -153,7 +153,6 @@ The --selector flag in kubectl rollout restart not recognized
 exec auth: support TLS config caching
 should detach volume right after deletionTimestamp is set to Pod
 Kubectl apply sometimes merges different volume types
-fix 111933
 Statefuleset/DaemonSet reports invalid status due to ResourceQuota.
 Some pods get stuck in ContainerCreating status after being replaced by another pod
 randomly killing kube-apiserver pods can make secret without the encryption key prefix 

@@ -95,7 +95,13 @@ class Generator:
 
     def _file_to_multiline_yaml(self, file_path) -> str:
         with open(file_path, 'r') as f:
-            return os.linesep.join([f"- {line.strip()}" for line in f.readlines()])
+            lines = []
+            for line in f.readlines():
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                lines.append(f"- {line}")
+            return os.linesep.join(lines)
 
     def _generate_nlu(self):
         # Read intent templates
@@ -129,9 +135,7 @@ class Generator:
     def _generate_domain(self):
         with open('templates/domain.yml', 'r') as f:
             domain = yaml.safe_load(f)
-        # TODO configure domain
         domain = self._configure_domain(domain)
-
         with open(self.out.domain, 'w+') as f:
             yaml.safe_dump(domain, f, sort_keys=False)
 

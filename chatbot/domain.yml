@@ -1,6 +1,6 @@
 version: '3.1'
 intents:
-- act_submit_issue
+- op_submit_issue
 - affirm
 - bot_challenge
 - cancel_op
@@ -39,7 +39,7 @@ responses:
       I can help you submit new or check status of existing issue.
     buttons:
       - title: I want to submit new issue
-        payload: /act_submit_issue
+        payload: /op_submit_issue
       - title: I want to check existing issue
         payload: /op_check_issue
   utter_ask_submit_issue_form_gh_username:
@@ -62,12 +62,12 @@ responses:
     - text: What is the number of an issue you are interested in?
 entities:
 - issue_id
-- version
 - gh_username
 - issue_description
 - issue_label
+- version
 slots:
-  slot_validate_form:
+  FLAG_VALIDATE_FORM:
     type: bool
     mappings:
     - type: custom
@@ -82,7 +82,7 @@ slots:
         requested_slot: gh_username
     - entity: gh_username
       type: from_entity
-      intent: act_submit_issue
+      intent: op_submit_issue
   issue_description:
     type: text
     influence_conversation: true
@@ -92,32 +92,16 @@ slots:
       conditions:
       - active_loop: submit_issue_form
         requested_slot: issue_description
-  version:
-    type: text
-    influence_conversation: true
-    mappings:
-    - entity: version
-      type: from_entity
-      not_intent: cancel_op
-      conditions:
-      - active_loop: submit_issue_form
-        requested_slot: version
   issue_id:
     type: text
     influence_conversation: true
     mappings:
     - entity: issue_id
       type: from_entity
-  issue_label:
-    type: text
-    influence_conversation: true
-    mappings:
-    - entity: issue_label
-      not_intent: cancel_op
+      intent: op_check_issue
+    - entity: issue_id
       type: from_entity
-      conditions:
-      - active_loop: submit_issue_form
-        requested_slot: issue_label
+      intent: tell_issue_id
   FLAG_CHECK_ISSUE_ACTIVE:
     type: any
     mappings:
@@ -139,7 +123,31 @@ slots:
         conditions:
           - active_loop: submit_issue_form
             requested_slot: CONTINUE_SUBMIT_ISSUE
-
+  POSSIBLE_DUPLICATES:
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: custom
+  issue_label:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: issue_label
+      not_intent: cancel_op
+      type: from_entity
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: issue_label
+  version:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: version
+      type: from_entity
+      not_intent: cancel_op
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: version
 forms:
   submit_issue_form:
     required_slots:

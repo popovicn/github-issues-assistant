@@ -21,7 +21,7 @@ rules:
   condition:
     - active_loop: null
   steps:
-  - intent: act_submit_issue
+  - intent: op_submit_issue
   - action: submit_issue_form
   - active_loop: submit_issue_form
 
@@ -41,7 +41,7 @@ rules:
 - rule: Confirm send submit form
   condition:
   - slot_was_set:
-      - slot_validate_form: true
+      - FLAG_VALIDATE_FORM: true
   steps:
   - intent: affirm
   - action: send_submit_issue_form
@@ -60,7 +60,7 @@ rules:
 - rule: Cancell send submit form
   condition:
   - slot_was_set:
-    - slot_validate_form: true
+    - FLAG_VALIDATE_FORM: true
   steps:
     - or:
       - intent: deny

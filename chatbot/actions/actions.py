@@ -8,6 +8,9 @@ from rasa_sdk.types import DomainDict
 from .github_client import GithubClient
 
 
+FORM_FIELDS = ['issue_label', 'version']
+
+
 class ActionDefaultFallback(Action):
     """Executes the fallback action and goes back to the previous state
     of the dialogue"""
@@ -50,6 +53,8 @@ class ValidateSubmitIssueForm(FormValidationAction):
             additional_slots.append("CONTINUE_SUBMIT_ISSUE")
         return additional_slots + domain_slots
 
+    # TODO validate_issue_id, #12 -> 12
+
     def validate_issue_description(
         self,
         slot_value: Any,
@@ -68,7 +73,8 @@ class ValidateSubmitIssueForm(FormValidationAction):
                 dispatcher.utter_message(issue.short_description)
             return {
                 "issue_description": slot_value,
-                "FLAG_VALIDATE_ISSUE": True
+                "FLAG_VALIDATE_ISSUE": True,
+                "POSSIBLE_DUPLICATES": [i.to_json() for i in issues]
             }
         else:
             return {"issue_description": slot_value}
@@ -82,17 +88,13 @@ class UtterConfirmSubmitIssue(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        take_slots = [
-            "issue_description",
-            "issue_label",
-            "version"
-        ]
         dispatcher.utter_message("You provided following information:")
-        for slot_name in take_slots:
+        dispatcher.utter_message('"{}"'.format(tracker.get_slot('issue_description')))
+        for slot_name in FORM_FIELDS:
             slot_val = tracker.get_slot(slot_name)
             dispatcher.utter_message(text=f"  - {slot_name}: {slot_val}")
         dispatcher.utter_message("Do you want to submit this issue?")
-        return [SlotSet("slot_validate_form", True)]
+        return [SlotSet("FLAG_VALIDATE_FORM", True)]
 
 
 class ActionSubmitIssueForm(Action):
@@ -105,21 +107,17 @@ class ActionSubmitIssueForm(Action):
 
         username = tracker.get_slot("gh_username")
         title = tracker.get_slot("issue_description")
-        take_slots = [
-            # "gh_username",
-            # "issue_description",
-            "issue_label",
-            "version"
-        ]
         data = {}
-        for slot_name in take_slots:
+        for slot_name in FORM_FIELDS:
             data[slot_name] = tracker.get_slot(slot_name)
-
+        possible_duplicates = tracker.get_slot("POSSIBLE_DUPLICATES")
+        if possible_duplicates:
+            data["possible_duplicates"] = possible_duplicates
         gc = GithubClient()
         issue_url = gc.create_issue(user=username, title=title, **data)
         if issue_url:
             dispatcher.utter_message(
-                f"Your issue has been submitted, you can track it here: {issue_url}")
+                f"Your issue has been submitted, you can track it at {issue_url}")
         else:
             dispatcher.utter_message(
                 "Sorry, your issue submission failed. Please contact support."
@@ -138,17 +136,16 @@ class ActionResetAllSlotsExceptUsername(Action):
         # Slots from submit issue form
         reset_slots = [
             "issue_description",
-            "issue_label",
-            "version",
             "CONTINUE_SUBMIT_ISSUE",
+            "POSSIBLE_DUPLICATES",
             "FLAG_VALIDATE_ISSUE",
-            "CONTINUE_SUBMIT_ISSUE"
+            "FLAG_VALIDATE_FORM",
+            "FLAG_CHECK_ISSUE_ACTIVE",
         ]
+        reset_slots.extend(FORM_FIELDS)
         events = [SlotSet(slot, None) for slot in reset_slots]
         # Standard slots
         events.extend([
-            SlotSet("slot_validate_form", False),
-            SlotSet("FLAG_CHECK_ISSUE_ACTIVE", None),
             ActiveLoop(None),
             SlotSet("requested_slot", None)
         ])
@@ -167,6 +164,6 @@ class ActionCheckIssueStatus(Action):
         if issue:
             message = issue.description
         else:
-            message = f"Issue #{issue_id} doesn't exist."
+            message = f"Issue #{issue_id} doesn't seem to exist."
         dispatcher.utter_message(message)
         return [SlotSet("issue_id", None)]

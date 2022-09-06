@@ -4,7 +4,7 @@ stories:
 
 - story: Submit form happy path
   steps:
-    - intent: act_submit_issue
+    - intent: op_submit_issue
     - action: submit_issue_form
     - active_loop: submit_issue_form
     - action: submit_issue_form

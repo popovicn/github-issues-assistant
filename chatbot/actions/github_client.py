@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from typing import List, Union
 from urllib.parse import urlencode
 
@@ -8,20 +9,47 @@ import requests
 
 class GithubIssueObj:
 
-    def __init__(self, number, title, state, url):
+    def __init__(self, number, title, state, url, last_activity):
         self.number = number
         self.title = title
         self.state = state
         self.url = url
+        self.last_activity = last_activity
+
+    @classmethod
+    def from_json(cls, data):
+        return cls(
+            number=data.get('number'),
+            title=data.get('title'),
+            state=data.get('state'),
+            url=data.get('url'),
+            last_activity=datetime.strptime(data.get('last_activity'), '%d.%m.%Y.')
+        )
+
+    def to_json(self):
+        return dict(
+            number=self.number,
+            title=self.title,
+            state=self.state,
+            url=self.url,
+            last_activity=self.last_activity.strftime('%d.%m.%Y.')
+        )
 
     @classmethod
     def load(cls, data):
-        return cls(data.get('number'), data.get('title'), data.get('state'), data.get('url'))
+        return cls(
+            number=data.get('number'),
+            title=data.get('title'),
+            state=data.get('state'),
+            url=data.get('html_url'),
+            last_activity=datetime.strptime(data.get('updated_at'), "%Y-%m-%dT%H:%M:%SZ")
+        )
 
     @property
     def description(self):
         return f"Issue #{self.number} '{self.title}' is {self.state}. " \
-               f"You can track it at {self.url}"
+               f"Last activity happened on {self.last_activity.strftime('%d.%m.%Y.')} " \
+               f"You can track it at: {self.url}"
 
     @property
     def short_description(self):
@@ -45,15 +73,27 @@ class GithubClient:
 
     def _fmt_issue_body(self, user, **kwargs) -> str:
         body_md_lines = [
-            f"_Issue submitted by user **{user}**_"
+            f"> _This issue was submitted by user @{user} "
+            f"via [popovicn/github-issues-assistant]"
+            f"(https://github.com/popovicn/github-issues-assistant)_"
         ]
-        [body_md_lines.extend([f"#### {k}", v]) for k, v in kwargs.items()]
+        print("KWARGS")
+        print(kwargs)
+        possible_duplicates = kwargs.pop("possible_duplicates")
+        print("POSS DUP")
+        print(possible_duplicates)
+        if possible_duplicates:
+            duplicate_alert = "> ⚠️ _Possible duplicate of "
+            for pd in possible_duplicates:
+                duplicate_alert += f"#{GithubIssueObj.from_json(pd).number} "
+            body_md_lines.append(duplicate_alert + "_")
+        [body_md_lines.extend([f"### {k}", v]) for k, v in kwargs.items()]
         body_md = "\n".join(body_md_lines)
         return body_md
 
     def create_issue(self, user, title, **kwargs) -> str:
-        if self.mock:
-            return "<mock url>"
+        # if self.mock:
+        #     return "<mock url>"
         data = dict(
             title=title,
             body=self._fmt_issue_body(user, **kwargs),
@@ -95,7 +135,7 @@ class GithubClient:
 if __name__ == '__main__':
     gc = GithubClient()
 
-    title = "Problems signing in"
+    title = "sign in problem"
     qs = {
         "Description": title,
         "Version": "v0.1.2"
@@ -104,19 +144,19 @@ if __name__ == '__main__':
     # gc.create_issue(user="test-user", title=title, **qs)
 
     # Search issue
-    # issues = gc.search_issue(title)
-    # if issues:
-    #     for issue in issues:
-    #         print(issue.short_description)
-    #         print(issue.description)
-    #         print("---")
-    # else:
-    #     print("no issues found")
+    issues = gc.search_issue(title)
+    if issues:
+        for issue in issues:
+            print(issue.short_description)
+            print(issue.description)
+            print("---")
+    else:
+        print("no issues found")
 
     # Get issue by id
-    issue = gc.get_issue(5)
-    if issue:
-        print(issue.short_description)
-        print(issue.description)
-    else:
-        print(f"Issue does not exist")
+    # issue = gc.get_issue(8)
+    # if issue:
+    #     print(issue.short_description)
+    #     print(issue.description)
+    # else:
+    #     print(f"Issue does not exist")

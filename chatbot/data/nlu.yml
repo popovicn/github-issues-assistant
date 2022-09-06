@@ -40,7 +40,7 @@ nlu:
     - this was a mistake
     - i do not want to submit an issue anymore
     - sorry i don't want to do this
-- intent: act_submit_issue
+- intent: op_submit_issue
   examples: |
     - i want to submit an issue
     - i have an issue
@@ -85,6 +85,7 @@ nlu:
     - [sarabala1979](gh_username)
     - [prichrd](gh_username)
     - [krrrr38](gh_username)
+    - i am [1337code](gh_username), submit issue
     - my github username is [saradhis](gh_username)
     - it is [blkperl](gh_username)
     - username: [dtaniwaki](gh_username)
@@ -122,32 +123,29 @@ nlu:
     - human or bot
 - intent: op_check_issue
   examples: |
-    - Hi i'd like to check issue with id (35)[issue_id]
-    - what is the status of issue (432)[issue_id]
-    - issue \#(10)[issue_id] status?
-    - i submitted issue \#(27)[issue_id] a while ago, is it solved?
-    - has issue (35)[issue_id] been solved?
-    - i want to check issue (501)[issue_id]
-    - i want to check issue number (12)[issue_id]
-    - i want to check issue \#(44)[issue_id]
-    - check issue \#(43)[issue_id]
-    - what is status of issue (222)[issue_id]
-    - status of issue \#(254)[issue_id]
+    - Hi i'd like to check issue with id [35](issue_id)
+    - what is the status of issue [432](issue_id)
+    - issue [\#10](issue_id) status?
+    - i submitted issue [\#27](issue_id) a while ago, is it solved?
+    - has issue [35](issue_id) been solved?
+    - i want to check issue [501](issue_id)
+    - i want to check issue number [12](issue_id)
+    - i want to check issue [\#44](issue_id)
+    - check issue [\#43](issue_id)
+    - what is status of issue [222](issue_id)
+    - status of issue [\#254](issue_id)
     - issue [254](issue_id) status
     - issue status \#[298](issue_id)
     - check issue \#[123](issue_id)
 - intent: tell_issue_id
   examples: |
-    - \#[88](issue_id)
-    - \#[576](issue_id)
+    - [\#88](issue_id)
+    - [\#576](issue_id)
     - [209](issue_id)
     - [30](issue_id)
-    - the issue is \#[94](issue_id)
+    - the issue is [\#94](issue_id)
     - the issue is [14](issue_id)
-    - issue \#[1](issue_id)
+    - issue [\#1](issue_id)
     - issue [34](issue_id)
     - issue number [433](issue_id)
-    - issue number \#[299](issue_id)
-- regex: issue_id
-  examples: |
-    - \d+
+    - issue number [\#299](issue_id)

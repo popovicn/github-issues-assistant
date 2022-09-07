@@ -8,9 +8,11 @@ from rasa_sdk.types import DomainDict
 from .github_client import GithubClient
 
 
+CHATBOT_NAME = "chatbot"
+
 FORM_FIELDS = {
-    'issue_label': "Please assign label to this issue",
-    'version': "Which version of the product are you using"
+    'issue_label': "label",
+    'version': "Product version"
 }
 
 
@@ -78,7 +80,7 @@ class ValidateSubmitIssueForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        gc = GithubClient()
+        gc = GithubClient(CHATBOT_NAME)
         issues = gc.search_issue(slot_value)
         if issues:
             if len(issues) > 1:
@@ -131,7 +133,7 @@ class ActionSubmitIssueForm(Action):
         possible_duplicates = tracker.get_slot("POSSIBLE_DUPLICATES")
         if possible_duplicates:
             data["possible_duplicates"] = possible_duplicates
-        gc = GithubClient()
+        gc = GithubClient(CHATBOT_NAME)
         issue_url = gc.create_issue(user=username, title=title, **data)
         if issue_url:
             dispatcher.utter_message(
@@ -177,7 +179,7 @@ class ActionCheckIssueStatus(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         issue_id = tracker.get_slot("issue_id")
-        gc = GithubClient()
+        gc = GithubClient(CHATBOT_NAME)
         issue = gc.get_issue(issue_id)
         if issue:
             message = issue.description

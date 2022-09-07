@@ -58,10 +58,11 @@ class GithubIssueObj:
 
 class GithubClient:
 
-    def __init__(self):
+    def __init__(self, chatbot_name):
         self.token = os.environ.get("GIA_GITHUB_TOKEN")
         self.repo = os.environ.get("GIA_GITHUB_REPO").strip("/")
         self.mock = os.environ.get("GIA_ENV") != "production"
+        self.custom_label = f"via:{chatbot_name}"
         print(self.token, self.repo)
 
     @property
@@ -88,21 +89,27 @@ class GithubClient:
         return body_md
 
     def create_issue(self, user, title, **kwargs) -> str:
+        print(kwargs)
         # if self.mock:
         #     return "<mock url>"
+        label = kwargs.pop("label", None)
+        if label:
+            labels = [label, self.custom_label]
+        else:
+            labels = [self.custom_label]
         data = dict(
             title=title,
             body=self._fmt_issue_body(user, **kwargs),
-            labels=[
-                "from/chatbot",
-            ]
+            labels=labels
         )
+        print(labels)
+        print("##################")
         url = f"https://api.github.com/repos/{self.repo}/issues"
         response = requests.post(url,
                                  data=json.dumps(data),
                                  headers=self._headers)
         if response.status_code == 201:
-            return response.json().get("url")
+            return response.json().get("html_url")
         else:
             return None
 
@@ -129,25 +136,26 @@ class GithubClient:
 
 
 if __name__ == '__main__':
-    gc = GithubClient()
+    gc = GithubClient("bot1")
 
     title = "sign in problem"
     qs = {
         "Description": title,
-        "Version": "v0.1.2"
+        "Version": "v0.1.2",
+        "label": "fix"
     }
     # Create issue
-    # gc.create_issue(user="test-user", title=title, **qs)
+    gc.create_issue(user="test-user", title=title, **qs)
 
     # Search issue
-    issues = gc.search_issue(title)
-    if issues:
-        for issue in issues:
-            print(issue.short_description)
-            print(issue.description)
-            print("---")
-    else:
-        print("no issues found")
+    # issues = gc.search_issue(title)
+    # if issues:
+    #     for issue in issues:
+    #         print(issue.short_description)
+    #         print(issue.description)
+    #         print("---")
+    # else:
+    #     print("no issues found")
 
     # Get issue by id
     # issue = gc.get_issue(8)

@@ -1,7 +1,6 @@
 version: '3.1'
 intents:
-- whoareyou
-- op_submit_issue
+- whoareyouџ
 - affirm
 - bot_challenge
 - cancel
@@ -10,6 +9,7 @@ intents:
 - inform
 - nlu_fallback
 - op_check_issue
+- op_submit_issue
 - tell_issue_id
 actions:
 - action_check_issue
@@ -89,6 +89,9 @@ slots:
     - entity: gh_username
       type: from_entity
       intent: op_submit_issue
+    - entity: gh_username
+      type: from_entity
+      intent: greet
   issue_description:
     type: text
     influence_conversation: true

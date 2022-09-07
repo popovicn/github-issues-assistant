@@ -66,7 +66,7 @@ class GithubClient:
 
     @property
     def _headers(self) -> dict:
-        return  dict(
+        return dict(
             Accept="Accept: application/vnd.github+json",
             Authorization=f"Bearer {self.token}"
         )
@@ -77,17 +77,13 @@ class GithubClient:
             f"via [popovicn/github-issues-assistant]"
             f"(https://github.com/popovicn/github-issues-assistant)_"
         ]
-        print("KWARGS")
-        print(kwargs)
-        possible_duplicates = kwargs.pop("possible_duplicates")
-        print("POSS DUP")
-        print(possible_duplicates)
+        possible_duplicates = kwargs.pop("possible_duplicates", None)
         if possible_duplicates:
-            duplicate_alert = "> ⚠️ _Possible duplicate of "
+            duplicate_alert = "> ⚠️ _Possible duplicate of"
             for pd in possible_duplicates:
-                duplicate_alert += f"#{GithubIssueObj.from_json(pd).number} "
+                duplicate_alert += f" #{GithubIssueObj.from_json(pd).number}"
             body_md_lines.append(duplicate_alert + "_")
-        [body_md_lines.extend([f"### {k}", v]) for k, v in kwargs.items()]
+        [body_md_lines.extend([f"#### {k}", v]) for k, v in kwargs.items()]
         body_md = "\n".join(body_md_lines)
         return body_md
 

@@ -2,9 +2,16 @@ version: "3.1"
 
 rules:
 
-- rule: Init conversation
+- rule: Greet
   steps:
     - intent: greet
+    - action: utter_hi
+    - action: utter_choose
+
+- rule: Explain purpose
+  steps:
+    - intent: whoareyou
+    - action: utter_iamabot
     - action: utter_choose
 
 - rule: Say 'I am a bot' anytime the user challenges

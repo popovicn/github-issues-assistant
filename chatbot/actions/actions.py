@@ -8,7 +8,10 @@ from rasa_sdk.types import DomainDict
 from .github_client import GithubClient
 
 
-FORM_FIELDS = ['issue_label', 'version']
+FORM_FIELDS = {
+    'issue_label': "Please assign label to this issue",
+    'version': "Which version of the product are you using"
+}
 
 
 class ActionDefaultFallback(Action):
@@ -102,10 +105,12 @@ class UtterConfirmSubmitIssue(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message("You provided following information:")
-        dispatcher.utter_message('"{}"'.format(tracker.get_slot('issue_description')))
-        for slot_name in FORM_FIELDS:
+        dispatcher.utter_message("Issue description")
+        dispatcher.utter_message(f"  - {tracker.get_slot('issue_description')}")
+        for slot_name, question in FORM_FIELDS.items():
             slot_val = tracker.get_slot(slot_name)
-            dispatcher.utter_message(text=f"  - {slot_name}: {slot_val}")
+            dispatcher.utter_message(text=question)
+            dispatcher.utter_message(text=f"  - {slot_val}")
         dispatcher.utter_message("Do you want to submit this issue?")
         return [SlotSet("FLAG_VALIDATE_FORM", True)]
 
@@ -121,8 +126,8 @@ class ActionSubmitIssueForm(Action):
         username = tracker.get_slot("gh_username")
         title = tracker.get_slot("issue_description")
         data = {}
-        for slot_name in FORM_FIELDS:
-            data[slot_name] = tracker.get_slot(slot_name)
+        for slot_name, question in FORM_FIELDS.items():
+            data[question] = tracker.get_slot(slot_name)
         possible_duplicates = tracker.get_slot("POSSIBLE_DUPLICATES")
         if possible_duplicates:
             data["possible_duplicates"] = possible_duplicates

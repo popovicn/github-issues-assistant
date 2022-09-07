@@ -53,7 +53,14 @@ responses:
   utter_ask_submit_issue_form_issue_description:
   - text: Please describe your issue
   utter_ask_submit_issue_form_issue_label:
-  - text: Please enter issue label
+  - text: Please select label for this issue
+    buttons:
+      - title: bug
+        payload: '/inform{{"issue_label":"bug"}}'
+      - title: documentation
+        payload: '/inform{{"issue_label":"documentation"}}'
+      - title: enhancement
+        payload: '/inform{{"issue_label":"enhancement"}}'
   utter_ask_submit_issue_form_version:
   - text: Which version of the product are you using?
   utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE:

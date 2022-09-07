@@ -571,9 +571,9 @@ nlu:
     - version is [12.3.42](version)
     - version [4.2.x](version)
     - [3.x](version)
-    - [fix](issue_label)
-    - [bugfix](issue_label)
-    - [feature](issue_label)
+    - [bug](issue_label)
+    - [documentation](issue_label)
+    - [enhancement](issue_label)
 - intent: bot_challenge
   examples: |
     - are you a bot?

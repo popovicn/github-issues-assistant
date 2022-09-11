@@ -1,19 +1,12 @@
 github-issues-assistant
 -----------------------
+Chatbot generator built on top of Rasa
 
-## TODO
-
-### Github service
-- search for issue
-- create issue
-- assistant_github_template
-- github_template parser
-
-
-### Write
-
-- Tokenizer, Featurizer, IntentClassifier https://rasa.com/docs/rasa/components/#tokenizers
-
+### Modules
+- chatbot - base chatbot, used for development and testing
+- generator - chatbot generator
+- generated_chatbot_example - chatbot generated using generator and base chatbot
+- training - utilities for training data
 
 ### Notes
 - Rasa works only on python3.7/3.8 and pip21 and this project won't work on Ubuntu 22 default

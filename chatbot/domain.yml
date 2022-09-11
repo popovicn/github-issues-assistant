@@ -1,6 +1,6 @@
 version: '3.1'
 intents:
-- whoareyouџ
+- whoareyou
 - affirm
 - bot_challenge
 - cancel

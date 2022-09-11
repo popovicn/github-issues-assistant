@@ -8,7 +8,7 @@ from rasa_sdk.types import DomainDict
 from .github_client import GithubClient
 
 
-FORM_FIELDS = <FORM_FIELDS>
+FORM_FIELDS = {'issue_label': 'label', 'version': 'Which version of the product are you using?', 'answer_q0': 'When was the first time you experienced this issue?', 'answer_q1': 'Can you confirm this issue persist after deleting cache and cookies?', 'answer_q2': 'Would you like to be notified when this issue is resolved, and how?'}
 
 
 class ActionDefaultFallback(Action):

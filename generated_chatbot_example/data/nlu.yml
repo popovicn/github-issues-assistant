@@ -1,0 +1,819 @@
+version: '3.1'
+nlu:
+- intent: deny
+  examples: "- no\n- n\n- never\n- I don't think so\n- no way\n- not really\n- actually\
+    \ no\n- no sorry\n- I don't want to\n- I don't want to give it to you\n- I don't\
+    \ want to say\n- I dont want to tell\n- I'm not going to do that\n- NEIN\n- NO\n\
+    - NO DON\"T WANT THIS!\n- Nah\n- Neither\n- Never\n- Nevermind\n- No\n- No thank\
+    \ you\n- No, not really.\n- No, thank you\n- No.\n- Nopes\n- Not really\n- absolutely\
+    \ not\n- decline\n- definitely not\n- deny\n- i decline\n- i don not like this\n\
+    - i don't think so\n- i don't want either of those\n- i don't want to\n- i dont\
+    \ want to\n- i dont want to accept :P lol\n- i guess it means - no\n- i'm afraid\
+    \ not\n- i'm not sure\n- n\n- na\n- nah\n- nah I'm good\n- nah not for me\n- nah\
+    \ man\n- nah, first time\n- nah, i'm good\n- nehi\n- nein\n- neither\n- never\n\
+    - never mind\n- no\n- no :(\n- no I dont want\n- no I haven't decided yet if I\
+    \ want to\n- no and no again\n- no bots at all\n- no go\n- no i can't\n- no i\
+    \ don't accept\n- no i dont want to\n- no i dont want to accept :P lol\n- no i\
+    \ won't\n- no ma'am\n- no sir\n- no sorry\n- no thank s\n- no thank you\n- no\
+    \ thanks\n- no way\n- no you did it wrong\n- no!!!!\n- no, i hate it\n- no, thank\
+    \ you\n- no, thanks\n- no, thankyou\n- no. u r idiot\n- non\n- noooooooooo\n-\
+    \ noooooooooooooooooooooooooooooooooooooooo\n- nop\n- nope\n- nope!\n- nope. i\
+    \ am good\n- not going well at all\n- not really\n- not right now\n- not yet\n\
+    - n\xF6\n- sorry not right now\n- still dont want to tell\n- thanks but no thanks\n\
+    - I don't wanna\n- no stop\n- stop it, i do not care!!!\n- none of them\n- I don't\
+    \ agree"
+- intent: affirm
+  examples: |-
+    - yes
+    - yes please
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - ok
+    - Accept
+    - Awesome!
+    - Good
+    - Great
+    - I accept
+    - I accept.
+    - I agree
+    - I am using it
+    - I changed my mind. I want to accept it
+    - I do
+    - I get it
+    - I guess so
+    - I have used it in the past
+    - I will
+    - I'd absolutely love that
+    - I'm sure I will!
+    - I'm using it
+    - Nice
+    - OK
+    - Ofcourse
+    - Oh yes
+    - Oh, ok
+    - Ok
+    - Ok let's start
+    - Ok.
+    - Okay
+    - Okay!
+    - PLEASE
+    - SURE
+    - Sure
+    - Sweet
+    - That would be great
+    - YES
+    - YUP
+    - Yea
+    - Yeah
+    - Yeah sure
+    - Yep
+    - Yep that's fine
+    - Yep!
+    - Yepp
+    - Yes
+    - Yes I do
+    - Yes please
+    - Yes please!
+    - Yes, I accept
+    - Yes.
+    - Yup
+    - absolutely
+    - accept
+    - accepted
+    - agreed
+    - ah ok
+    - alright
+    - alright, cool
+    - amayzing
+    - amazing!
+    - awesome
+    - awesome!
+    - confirm
+    - cool bro
+    - definitely yes without a doubt
+    - done
+    - fair enough
+    - fcourse
+    - fine
+    - go
+    - go ahead
+    - go for it
+    - going super well
+    - good.
+    - great
+    - great lets do that
+    - great!
+    - hell yeah
+    - hell yes
+    - hm, i'd like that
+    - how nice!
+    - i accept
+    - i agree
+    - i am!
+    - i want that
+    - i will!
+    - it is ok
+    - its okay
+    - ja
+    - ja cool
+    - ja thats great
+    - jezz
+    - jo
+    - k
+    - kk
+    - lets do it
+    - lets do this
+    - not bad
+    - of course
+    - ofcoure i do
+    - ofcourse
+    - oh awesome!
+    - oh cool
+    - oh good !!
+    - oh super
+    - ok
+    - ok cool
+    - ok fine
+    - ok friend
+    - ok good
+    - ok great
+    - ok i accept
+    - ok bot
+    - ok, I behave now
+    - ok, I understood
+    - ok, Sara
+    - ok...
+    - okay
+    - okay cool
+    - okay sure
+    - okay..
+    - oki doki
+    - okie
+    - ook
+    - oui
+    - perfect
+    - please
+    - si
+    - sort of
+    - sure
+    - sure thing
+    - sure!
+    - that is cool
+    - that ok
+    - that sounds fine
+    - that's great
+    - thats fine
+    - thats good
+    - thats great
+    - top
+    - uh-huh
+    - very much
+    - well yes
+    - y
+    - ya
+    - ya cool
+    - ya go for it
+    - ya i want
+    - ya please
+    - ya thats cool
+    - yaah
+    - yap
+    - yaps
+    - yas
+    - yay
+    - ye
+    - ye splease
+    - yea
+    - yeah
+    - yeah do that
+    - yeah sure
+    - yeah'=
+    - yeah, why not
+    - yeeeeezzzzz
+    - yeeees
+    - yep
+    - yep i want that
+    - yep if i have to
+    - yep please
+    - yep that's nice
+    - yep thats cool
+    - yep, will do thank you
+    - yep. :/
+    - yes
+    - yes ...
+    - yes I do
+    - yes accept please
+    - yes baby
+    - yes cool
+    - yes give me information
+    - yes go ahead
+    - yes go for it
+    - yes great
+    - yes i accept
+    - yes i agree
+    - yes i have built a bot before
+    - yes i have!
+    - yes it is
+    - yes it was okay
+    - yes of course
+    - yes pleae
+    - yes please
+    - yes please!
+    - yes pls
+    - yes sirfr
+    - yes that's great
+    - yes that's what i want
+    - yes you can
+    - yes'
+    - yes, I'd love to
+    - yes, cool
+    - yes, give me information, please
+    - yes,i am
+    - yes.
+    - yesh
+    - yess
+    - yessoo
+    - yesss
+    - yesssss
+    - yesyestyes
+    - yesyesyes
+    - yez
+    - yop
+    - you asked me a yes or no question, which i answered with yes
+    - you got me, I accept, if you want me to
+    - yres
+    - ys
+    - yup
+    - yyeeeh
+    - Okay cool
+    - ok..
+    - More a less
+    - sounds good!
+- intent: bot_challenge
+  examples: |-
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - is this a bot or a human
+    - human or bot
+- intent: op_submit_issue
+  examples: |-
+    - i want to submit an issue
+    - i have an issue
+    - a have a problem
+    - something is not working
+    - module doesnt work
+    - there is a bug
+    - something is wrong
+    - i can't access that
+    - seems like this is not working
+    - i think there might be an issue
+    - i have a problem accessing module
+    - your module is broken
+    - error when loading
+    - not responding
+    - i have a problem
+    - hi i am [Radolumbo](gh_username) and i want to submit an issue
+    - i want to submit an issue, my username is [ChaosInTheCRD](gh_username)
+    - my github username is [descrepes](gh_username) and i have a problem
+    - my username is [thundergolfer](gh_username), your module seems to be broken
+    - i can't access your site, i am [changhc](gh_username)
+    - there is error when loading, my username is [sandeepbhojwani](gh_username)
+    - i, [foobarbecue](gh_username), have an issue
+    - not responding, by the way my github username is [terrytangyuan](gh_username)
+    - i am [JPZ13](gh_username) and i think there is a bug
+    - i'm [posquit0](gh_username), unable to execute action
+    - i can't access module, username [alexcapras](gh_username)
+    - can't log in, my username is [thesuperzapper](gh_username)
+- intent: op_check_issue
+  examples: |-
+    - Hi i'd like to check issue with id [35](issue_id)
+    - what is the status of issue [432](issue_id)
+    - issue [#10](issue_id) status?
+    - i submitted issue [#27](issue_id) a while ago, is it solved?
+    - has issue [35](issue_id) been solved?
+    - i want to check issue [501](issue_id)
+    - i want to check issue number [12](issue_id)
+    - i want to check issue [#44](issue_id)
+    - check issue [#43](issue_id)
+    - what is status of issue [222](issue_id)
+    - status of issue [#254](issue_id)
+    - issue [254](issue_id) status
+    - issue status [#298](issue_id)
+    - check issue [#123](issue_id)
+- intent: greet
+  examples: |-
+    - hi
+    - hello
+    - hello there
+    - hey
+    - hi bot
+    - Bom dia
+    - Bonjour
+    - Good Morning
+    - Good morning
+    - Good mourning
+    - Guten Morgen
+    - HELLO
+    - HEY
+    - HEllo
+    - HI
+    - Hallo
+    - Hei
+    - Hellllooooooo
+    - Hello
+    - Hello Bot
+    - Hello!
+    - Hey
+    - Hey bot
+    - Heya
+    - Heylo
+    - Hi
+    - Hi bot
+    - Hi man
+    - Hi there
+    - Hi!
+    - Hi'
+    - Hi,
+    - Hi, bot
+    - Hieee
+    - Hieeeeeeeeeeeee
+    - Hola
+    - I said, helllllloooooO!!!!
+    - Well hello there ;)
+    - What is up?
+    - Whats up
+    - Whats up my bot
+    - Whats up?
+    - ayyyy whaddup
+    - bonjour
+    - ey boss
+    - good evening
+    - good moring
+    - good morning
+    - greet
+    - greetings
+    - hai
+    - hallo
+    - halloo
+    - halloooo
+    - halo
+    - heeey
+    - heelio
+    - hell9o
+    - hellio
+    - hello
+    - hello everybody
+    - hello friend
+    - hello hi
+    - hello is anybody there
+    - hello it is me again
+    - hello robot
+    - hello sweatheart
+    - hello there
+    - hello world
+    - hello?
+    - hello]
+    - hellooo
+    - helloooo
+    - helo
+    - hey
+    - hey bot
+    - hey bot!
+    - hey dude
+    - hey hey
+    - hey let's talk
+    - hey ther
+    - hey there
+    - hey there boy
+    - hey there..
+    - hey, let's talk
+    - heya
+    - heyho
+    - heyo
+    - hhola
+    - hi
+    - hi !
+    - hi Mister
+    - hi again
+    - hi can you speak ?
+    - hi folks
+    - hi friend
+    - hi friends
+    - hi hi
+    - hi pal!
+    - hi there
+    - hi there it's me
+    - hi!
+    - hi.........................................................
+    - hi?
+    - hieee
+    - hii
+    - hiihihi
+    - hiii
+    - hlo
+    - hola
+    - howdy
+    - jojojo
+    - jop
+    - konichiwa
+    - salut
+    - sup
+    - wasssup
+    - wasssup!
+    - what up
+    - whats popping
+    - whats up
+    - yo
+    - yoo
+    - ssup?
+    - helleo
+- intent: inform
+  examples: |-
+    - [popovicn](gh_username)
+    - [ntrzz](gh_username)
+    - [mhmdiaa](gh_username)
+    - [book987](gh_username)
+    - [caelan-io](gh_username)
+    - [rohankmr414](gh_username)
+    - [dgiebert](gh_username)
+    - [elikatsis](gh_username)
+    - [edlee2121](gh_username)
+    - [dpadhiar](gh_username)
+    - [anggao](gh_username)
+    - [AdamKorcz](gh_username)
+    - [sarabala1979](gh_username)
+    - [prichrd](gh_username)
+    - [krrrr38](gh_username)
+    - i am [1337code](gh_username)
+    - my github username is [saradhis](gh_username)
+    - it is [blkperl](gh_username)
+    - username: [dtaniwaki](gh_username)
+    - my username is [kennytrytek](gh_username)
+    - i am [isubasinghe](gh_username) on github
+    - u: [hanjunlee](gh_username)
+    - i am [henrywangx](gh_username)
+    - it's [rbreeze](gh_username)
+    - username for github is [jessesuen](gh_username)
+    - my github alias is [aistein](gh_username)
+    - i use [crenshaw-dev](gh_username) as my username
+    - gh username [joohoi](gh_username)
+    - [fo0b4r](gh_username) is my username
+    - [JPZ11](gh_username) on github
+    - [b44rR](gh_username) is my github username
+    - it is [six2dez](gh_username)
+    - i can't login
+    - table pagination is wrong
+    - list view returns all results
+    - having trouble signing in
+    - cannot sign in since last update
+    - can't sign in since yesterday
+    - module xyz is not working on version [v0.1.2](version)
+    - Emissary Executor Zombie Processes
+    - Approval step example from the Intermediate Parameters documentation is giving me an error.
+    - 3.4-rc2 - Links defined in configmaps have changed (so are broken)
+    - 3.4-rc2 - Workflows UI can no longer get logs (s3)
+    - GCS Directory output Artifact Visualization
+    - retryStrategy when not all fields are specified
+    - MetricsError: unable to compute workflow.status in metrics block with 'when' clause
+    - mutex synchronization does not preserve spec.workflowMetadata
+    - Argo-Exec V3.3.9 is recognising a failure exit code as exitCode 0
+    - Can't use template interpolation in mutex name in DAG
+    - Hooks defined in Workflow Controller `workflowTemplates` cause every workflow to fail
+    - Enhanced depends logic: Convenience definition isn't entirely convenient
+    - input parameter value condition doesn't work as expected
+    - "Please reduce your request rate" when using withSequence.count: 600 * 5GB saved to S3
+    - invalid character '{' after top-level value" when running pod as resource
+    - ArtifactRepository configuration maybe cannot be used across namespaces
+    - Workflow Failed: wait container is forcefully stopped
+    - Argo server shuts down and the UI doesn't connect
+    - dag task  failed with error msg "converting YAML to JSON: yaml: invalid map key"
+    - UI returns 500 on WorkflowTemplates tap if one WorkflowTemplate is invalid
+    - Linting/Submission for Workflow Of Workflows not working for workflows steps withItems and other complex workflows.
+    - Unable to convert unstructured to CronWorkflow when syncing CronWorkflows" error="unrecognized type: int64"
+    - Does P/R/C reporting on argo list -o wide still work?
+    - Bugs in UI Error Notice/Popup
+    - Error: runtime error: invalid memory address or nil pointer dereference (3.3.8)
+    - The SSO integration does not consider HTTP_PROXY env vars when making requests
+    - Problem on retryStrategy workflow when it used git artifact
+    - A bug encountered when executed examples from workflow-templates - A' errored: expected < 2 pods, got 2 - this is a bug
+    - Workflow API response failure due to RBAC restrictions
+    - Wrong pod name is visualised in the workflow
+    - Argo workflows - controller crashes if bad workflow is run
+    - argo terminate marks task as Succeeded instead of Failed
+    - nodeAntiAffinity is not working as expected.
+    - Specifying tty and stdin as true but still not getting a tty in the container
+    - Argo workflow mysql 5.7.18 persistence deadlock
+    - Java client fails to deserialize WorkflowTemplate
+    - Intermittent CI failures in Unit Tests
+    - `make codegen` does not succeed on master (for me)
+    - list_workflows-->argo_workflows.exceptions.ApiTypeError: Invalid type for variable 'finished_at'
+    - Unable to resolve output artifact of steps from expression when it refers to its own input artifact
+    - serviceAccountKeySecret - optional not respected.
+    - bug: GitHub Codespaces not building
+    - Argo CronWorkflow unknown time zone
+    - Wait container cannot exit if main container is OOMKilled
+    - Unable to load the root of s3 bucket path as an artifact on argo
+    - Unable to resolve artifact by using its own artifact storage sometimes
+    - Large Workflow hydration failed: upper: no more rows in this result set
+    - Intermittent failures in CI E2E tests
+    - Tree UI icons not working in Ubuntu 20.04
+    - Pods occasionally get killed (exit code 93) since upgrade to 3.3.6
+    - Workflow controller panics when stopping a workflow that has an Lifecycle-Hook with a plugin
+    - Variable whitespace not behaving as documented
+    - Cannot access output parameters in non-exit hook
+    - Error to use outputs parameters as a name of template
+    - Error with expr from parameter output another step
+    - error with @ character in gjson expression
+    - Workflow deadlocks on mutex in steps template if controller is restarted
+    - when: condition on outputs.artifact is false
+    - RBAC enabled but not restricting user
+    - Controller crashes when there are a lot of completed workflows
+    - atom --wait works only after closing the window, not just the file tab
+    - Git line diff and tree view status don't show changes for capitalization-renamed directories
+    - Fails to report error when stacktrace includes core JavaScript API
+    - Reflow jumbles separate lines together
+    - Symlinks within repository now breaking git-diff
+    - Close icon re-appears after drag-dropping a tab
+    - Dock Bug: Crossing dock toggle with drag and drop breaks dock positioning
+    - Application: Install Update closes the window and breaks the sessions
+    - [Regression] Auto indentation fails when moving multiple lines up or down
+    - Mapping ctrl-tab's key behavior to a different key, key doesn't work the same as ctrl-tab does
+    - [BUG] Fix resize behaviour when soft wrapping is enabled
+    - Scrollbar moves to the top when splitting panes
+    - Editor is empty if you scroll up after splitting
+    - Cursor rendered incorrectly when horizontalPixelPositions are measured while not visible
+    - Atom doesn't correctly indent lines with combining diacritics
+    - Window dimensions and position not being saved
+    - A cursor position is not restored when switching to and back from a pane without cursor
+    - Ctrl-alt-'letter' Keybindings do not appear as a shortcut
+    - Atom doesn't handle .gitignore/exclude files with trailing whitespace
+    - Scroll Past End retains 3 lines instead of 1
+    - Dock Icon stays visible when mouse leaves Atom window
+    - `Dock.destroy()` leaves part of the UI of the Dock behind and then exceptions happen
+    - Opening directory with spaces and trailing slash opens invalid file
+    - Atom 1.17.0-beta5 - onDidChangeActivePane and onDidStopChangingActivePaneItem on atom.workspace.getCenter() do not work.
+    - Lost input focus when switching between popup dialogs via shortcut key
+    - Saving and renaming different files causes conflict
+    - Pasting new line char into settings field causing problem, see gif
+    - Data loss when adding and removing project folders
+    - Copying or cutting without selecting text results in unexpected paste behaviour
+    - Folding keybindings duplicated
+    - horizontal scroll bar not fits longest line
+    - Proxy icon shows ~ in directory stack only when no files open
+    - Improper display of long indented hyperlinks in text files with soft wrap
+    - Unexpected restart causes Atom to lose project state
+    - With invisibles on, hard tabs render larger than they should
+    - Key combination doesn't show up in the menu -> `alt-shift-n`
+    - Arabic sentences between double quotations are rendered out of the quotations
+    - The entire editor breaks when a UI theme's ui-variables.less causes the Less compiler to error
+    - Atom can't save over hidden files
+    - Paste indentation issue with auto-indent off
+    - Some editor DOM operations stop working correctly after a certain number of lines
+    - Problems editing mixed German/Syriac text
+    - Failed to remove '/usr/local/bin/atom'
+    - subword selection behaves differently for UPPER_CASE and lower_case
+    - Case where TextEditor::getLastVisibleScreenRow() is off by one
+    - Executing pane:close will ask to save changes of TextEditors twice
+    - editor.bufferRangeForScopeAtCursor return undefined as special condition
+    - Indents based on previous lines are incorrectly tested using current/next line scope
+    - missing first letter on file operations (cut/copy/rename exc.)
+    - Open project folder dialog defaults to current filename
+    - Negated patterns from .gitignore_global are still included in VCS ignored paths
+    - The '/tmp/Atom Crashes' directory vs multiple userids
+    - Vertical Scroll When Horizontal Scroll Bar Is Visible
+    - word boundary not working with Unicode punctuations
+    - MouseWheel Scrolling Ignores Operating System Settings
+    - onDidChangeCursorPosition sends "textChanged" as false when backspace is pressed
+    - Error moving files across mounts or drives, "Failed to move entry EXDEV: cross-device link not permitted"
+    - Data loss after power outage
+    - Restored window size set to maximized after exiting maximized
+    - atom is ignoring files that shouldn't be ignored
+    - Standard mac hotkeys not working  on File Open choose directory  dialog
+    - Double-click drag selections have unusual and bad behavior on non-word characters
+    - RTL text selection
+    - Switching UI/Syntax theme does not display all elements in the new correct color
+    - Positioning Caret in CTL Text
+    - File auto reloading with untracked git files during branch change
+    - Problem installing Packages/ Themes and Updates (Corporate SSL Proxies)
+    - Context-menu triggered by menu key is positioned at the mouse cursor
+    - Cannot install shell commands if no window is open
+    - Atom may open windows off-screen if resolution/monitors have changed
+    - Atom Editor Doesn't Come to Foreground
+    - Enable jumping between menus using left-right arrow keys
+    - The insanity of Unicode's "RTL override"
+    - Javascript comment indentation
+    - Don't render byte order mark (BOM)
+    - Atom can lock files or folders under some circumstances
+    - [OS X] Atom shell command should not show a (temporary) second dock icon when Atom is already open
+    - QPS and Burst in kubelet are not being followed
+    - etcd3: include GroupResource in logs/metrics
+    - apiserver etcd3 metrics groups all CRDs as *unstructured.Unstructured
+    - topologySpreadConstraints not working as expected with nodeSelector
+    - Move /proc/asound from defaultReadonlyPaths to defaultMaskedPaths
+    - Some scheduler goroutines are not tracked in the metric
+    - Memory leak in port forwarding client
+    - UT address already in use error
+    - Fix the wrong status returned from `RunPreFilterPlugins`
+    - Undefined behaviour when selected pods overlap in HPA
+    - [client-go] sometimes the leader could not release his lock properly in leaderelection
+    - update lock getter of leaderelection
+    - Set correct SELinux label for host paths volumes created by host path provisioner
+    - The --selector flag in kubectl rollout restart not recognized
+    - exec auth: support TLS config caching
+    - should detach volume right after deletionTimestamp is set to Pod
+    - Kubectl apply sometimes merges different volume types
+    - Statefuleset/DaemonSet reports invalid status due to ResourceQuota.
+    - Some pods get stuck in ContainerCreating status after being replaced by another pod
+    - randomly killing kube-apiserver pods can make secret without the encryption key prefix
+    - fix error type when handling failures in scheduler
+    - Automated cherry pick of #111428: Skip "instance not found" error for LB backend address pools
+    - Broken Links on Release note CHANGELOG 1.25
+    - Differentiate CONNECT requests from other requests
+    - The scheme used by kubectl has no registered FieldLabelConversionFunc
+    - kms: fix go routine leak in gRPC connection
+    - DeleteCollection API fails if request body is non-empty
+    - [1.24] Bump cel-go to v0.10.2 and add unit tests
+    - Do not rewrite etc-hosts for multi-containers while no changes
+    - [client-go] add function to upgrade managedfields CSA to SSA
+    - Kubelet Ephemeral Storage by Disk
+    - Automated cherry pick of #107025: Remove AttachID matching from Detach
+    - vsphere in-tree driver test fixes
+    - Job controller activeDeadlineSeconds behavior for pending pods
+    - 1.18: kube-apiserver:  fatal error: concurrent map writes
+    - Better user error for confliciting pdbs
+    - Core certificate not being created within startup
+    - managedField entry for a removed API version prevent further resource updates
+    - Marshal MicroTime to json and proto at the same precision
+    - make applyconfiguration-gen work in non-kube repositiories
+    - CSI volumes left overs are not cleaned up if CSI plugin is attachable
+    - Endpoints objects fail to affect Service objects that previously had Selectors
+    - MicroTime marshalled at different precision for json and proto
+    - Changelog in 1.24.4 release not updated
+    - kubectl edit seems to always use client-side apply, can it use server-side?
+    - Using exec auth in kubectl triggers one connection per applied/described object
+    - Endpoint's weight is 0, need to gracefully delete it
+    - Invalid Bearer token error in Kube-apiserver when using azure auth provider in kube-config
+    - Fix:Static pods cannot be started any more after kubelet is restarted
+    - Relinquish leadership during zonal outage
+    - Reflector: support logging Unstructured type
+    - AvailableConditionController escalatory check behaviour during network partitions
+    - DNS does not work correctly on new nodes
+    - kube-apiserver: some HTTP requests might hang indefinitely
+    - Automated cherry pick of #101882: kubelet: more resilient node allocatable ephemeral-storage
+    - Network Policy: "host" could not be resolved when adding network policy?
+    - added ratcheting validation for  x-kubernetes-list-type
+    - Service NodePorts can be accessed via LB IPs (iptables, at least)
+    - client-go/tools/portforward: Don't consider ECONNRESET to be fatal
+    - Infelicities in TestRESTClientLimiter
+    - When using hostname -f to resolve FQDN, multiple containers sharing the same  /var/lib/kubelet/pods/xxxxx/etc-hosts file may have a certain impact
+    - cherry pick pr #111557 to 1.23 :update smd to 4.2.3
+    - The value of .spec.template.spec.restartPolicy in kubectl explain Deployment/DaemonSet/StatefulSet template prompts an error
+    - port-forward closed on specific postgres command
+    - Long held TCP connection gets destroyed randomly from conntrack
+    - k8s apiserver write big custom object timeout, apiserver high cpu
+    - Field status in kubelet logs has a different type
+    - Unable to view the pod log with status completed
+    - Validate labelSelector in topologySpreadConstraints
+    - kubectl:fix namespace missing in kubectl rollout undo
+    - kubectl rollout undo print a resume command without a namespace
+    - The non-affinity setting of deploying multiple replicas pods does not work, when a pod restarts abnormally
+    - pod creations are missing validation on spec.topologySpreadConstraints[*].labelSelector
+    - Informer log messages only identify by object type
+    - GracefulNodeShutdown Not Working as expected.
+    - Statefulset never create pod when one of replica pod  create failed
+    - kubelet returns diffirent fs metrics for docker and containerd
+    - Specifing --client-ca-file for apiserver does't work
+    - kubelet: make the image pull time more accurate in event
+    - CEL cost budgeting inconsistent rejections
+    - fix 104592 termination log causes nodes to run out of inodes on filesystem
+    - modify k8s.po, the 'kubectl top ode' is error
+    - Prevents automatic restart of static Pods
+    - Cadvisor manager update machine info periodically, but hugepage info in node status is only updated when kubelet starts
+    - pod with multiple PVC that use storage capacity tracking  schedule did not get correct available capacity
+    - log in desired_state_of_world.go seems to be wrong
+    - existing toleration can not be modified when add annotation for daemonsetPod after enabling podtolerationrestriction
+    - Stop the runtime service, unfinished jobs become succeed
+    - fix port-forward cannot handle the connection
+    - port-forward cannot handle the connection
+    - fix:e2e test flake: Probing container should mark readiness on pods to false...
+    - Reduce goroutine leakage in test/integration/controlplane/transformation
+    - When the number of replicas of the deployment decreases, execute kubectl get --raw /api/v1/nodes/$NODE_NAME/proxy/metrics/resource or kubectl get --raw /api/v1/nodes/$NODE_NAME/proxy/stats/summary, it gets stuck
+    - Kubernetes rejects overlapping mounts
+    - [1.0.0](version)
+    - version is [1.0.1](version)
+    - the [1.1.0](version)
+    - version [ls](version)
+    - [stable](version)
+    - [latest](version) is version
+    - [ui-v3-rc1](version)
+    - [v0.0.0-dev-bom-1](version)
+    - [v0.0.0-dev-bom-2](version)
+    - version is [v0.0.0-dev-build-3](version)
+    - [v0.0.0-dev-build-4](version)
+    - version [v0.0.0-dev-dataflow-1](version)
+    - [v0.0.0-dev-dataflow-14](version)
+    - my version is [v0.0.0-dev-dataflow-40](version)
+    - [v0.0.0-dev-docker-0](version)
+    - [v0.0.0-dev-kc-1](version)
+    - the [v0.0.0-dev-kc-2](version)
+    - [v0.0.0-dev-kc-3](version) version
+    - the [v0.0.0-dev-mc-5](version)
+    - [v0.0.0-dev-mc-6](version) version
+    - [v0.0.0-dev-pprof-1](version)
+    - [v0.4.0-alpha1](version)
+    - version [v2.0.0-alpha1](version)
+    - [v2.0.0-alpha2](version)
+    - [v0.4.1](version)
+    - [v0.4.2](version) version
+    - version is [v0.4.6](version)
+    - [v0.4.7](version) version
+    - i think version [v2.0.0](version)
+    - [v2.0.0-alpha3](version)
+    - [v2.0.0-beta1](version) version
+    - version [v2.1.0](version)
+    - the [v2.1.0-alpha1](version)
+    - version is [v2.1.0-beta1](version)
+    - [v2.1.0-beta2](version)
+    - [v2.1.1](version)
+    - my version is [v2.1.2](version)
+    - i think version [v2.10.0](version)
+    - version is [v2.10.0-rc1](version)
+    - [v2.10.0-rc5](version)
+    - [v2.10.0-rc7](version)
+    - [v2.10.1](version)
+    - version [v2.10.2](version)
+    - [v2.11.0](version) version
+    - [v2.11.0-rc1](version) is version
+    - [v2.11.0-rc2](version)
+    - [v2.11.0-rc3](version)
+    - [v2.11.1](version) is version
+    - my version is [v2.11.2](version)
+    - my version is [v2.11.7](version)
+    - [v2.11.8](version)
+    - [v2.12.0](version)
+    - [v2.12.0-rc1](version)
+    - [v2.12.0-rc3](version)
+    - [v2.12.1](version)
+    - [v2.12.11](version)
+    - the [v2.12.3](version)
+    - [v2.12.4](version)
+    - [v2.12.8](version)
+    - [v2.12.9](version)
+    - my version is [v2.5.0-rc1](version)
+    - the [v2.5.1](version)
+    - [v2.5.2](version)
+    - [v2.5.3-rc4](version) is version
+    - [v2.6.0](version)
+    - [v2.6.0-rc1](version)
+    - [v2.6.0-rc2](version)
+    - [v2.6.0-rc3](version)
+    - product version [v2.6.1](version)
+    - [v2.7.0](version) version
+    - [v2.7.0-rc1](version)
+    - [v2.7.0-rc2](version)
+    - [v2.7.0-rc3](version)
+    - [v2.7.0-rc4](version)
+    - [fix](issue_label)
+    - [bugfix](issue_label)
+    - [feature](issue_label)
+    - [enhancement](issue_label)
+    - [documentation](issue_label)
+- intent: cancel
+  examples: |-
+    - i want to cancel this
+    - cancel
+    - stop
+    - i changed my mind
+    - restart
+    - stop this
+    - sorry i made a mistake, i dont want to do this
+    - i don't want to do this
+    - this was a mistake
+    - i do not want to submit an issue anymore
+    - sorry i don't want to do this
+    - no, cancel
+    - cancell
+    - break
+    - abort
+    - abort please
+    - abort actions
+    - stop this right now
+    - stop
+    - stop please
+- intent: tell_issue_id
+  examples: |-
+    - [#88](issue_id)
+    - [#576](issue_id)
+    - [209](issue_id)
+    - [30](issue_id)
+    - the issue is [#94](issue_id)
+    - the issue is [14](issue_id)
+    - issue [#1](issue_id)
+    - issue [34](issue_id)
+    - issue number [433](issue_id)
+    - issue number [#299](issue_id)

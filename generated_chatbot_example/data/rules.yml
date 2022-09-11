@@ -1,0 +1,100 @@
+version: "3.1"
+
+rules:
+
+- rule: Init conversation
+  steps:
+    - intent: greet
+    - action: utter_choose
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: utter_please_rephrase
+
+- rule: Activate submit issue form
+  condition:
+    - active_loop: null
+  steps:
+  - intent: op_submit_issue
+  - action: submit_issue_form
+  - active_loop: submit_issue_form
+
+- rule: Deactivate submit issue form when completed
+  condition:
+  # Condition that form is active.
+  - active_loop: submit_issue_form
+  steps:
+  # Form is deactivated
+  - action: submit_issue_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: ask_confirm_submit_issue
+
+- rule: Confirm send submit form
+  condition:
+  - slot_was_set:
+      - FLAG_VALIDATE_FORM: true
+  steps:
+  - intent: affirm
+  - action: send_submit_issue_form
+  - action: utter_anything_else
+  - action: reset_all_slots_except_username
+
+- rule: Cancell form whenever
+  condition:
+    - active_loop: submit_issue_form
+  steps:
+    - intent: cancel
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username
+
+- rule: Cancell send submit form
+  condition:
+  - slot_was_set:
+    - FLAG_VALIDATE_FORM: true
+  steps:
+    - or:
+      - intent: deny
+      - intent: cancel
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username
+
+- rule: Ask for issue on check issue
+  steps:
+    - intent: op_check_issue
+    - slot_was_set:
+        - issue_id: null
+    - action: utter_ask_issue_id
+
+- rule: Check issue
+  steps:
+    - or:
+        - intent: op_check_issue
+        - intent: tell_issue_id
+    - slot_was_set:
+        - issue_id: 123
+    - action: action_check_issue
+    - slot_was_set:
+      - issue_id: null
+    - action: utter_anything_else
+
+- rule: Validate existing issue
+  condition:
+    - active_loop: submit_issue_form
+    - slot_was_set:
+        - CONTINUE_SUBMIT_ISSUE: false
+  steps:
+    - intent: deny
+    - action: utter_cancel_submit_issue
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username

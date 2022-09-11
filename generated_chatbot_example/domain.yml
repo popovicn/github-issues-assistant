@@ -1,0 +1,202 @@
+version: '3.1'
+intents:
+- op_submit_issue
+- affirm
+- bot_challenge
+- cancel
+- deny
+- greet
+- inform
+- nlu_fallback
+- op_check_issue
+- tell_issue_id
+actions:
+- action_check_issue
+- action_deactive_loop
+- action_default_fallback
+- ask_confirm_submit_issue
+- validate_submit_issue_form
+- action_validate_slot_mappings
+- validate_issue_id
+- utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE
+- reset_all_slots_except_username
+- send_submit_issue_form
+- utter_anything_else
+- utter_ask_issue_id
+responses:
+  utter_default:
+  - text: Sorry, I didn't understand that.
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_anything_else:
+  - text: Is there something else I can help you with?
+  utter_cancel_submit_issue:
+  - text: Ok, your request is cancelled.
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't understand that. Could you rephrase?
+  utter_submit_issue:
+  - text: What is your GitHub username?
+  utter_choose:
+  - text: I can help you submit new or check status of existing issue.
+    buttons:
+    - title: I want to submit new issue
+      payload: /op_submit_issue
+    - title: I want to check existing issue
+      payload: /op_check_issue
+  utter_ask_submit_issue_form_gh_username:
+  - text: What is your GitHub username?
+  utter_ask_submit_issue_form_issue_description:
+  - text: Please describe your issue
+  utter_ask_submit_issue_form_issue_label:
+  - text: Please enter issue label
+  utter_ask_submit_issue_form_version:
+  - text: Which version of the product are you using?
+  utter_ask_submit_issue_form_CONTINUE_SUBMIT_ISSUE:
+  - text: Are you sure you want to submit this issue?
+    buttons:
+    - title: Yes, I want to continue
+      payload: /affirm
+    - title: No, my issue is a duplicate
+      payload: /cancel
+  utter_ask_issue_id:
+  - text: What is the number of an issue you are interested in?
+  utter_ask_submit_issue_form_answer_q0:
+  - text: When was the first time you experienced this issue?
+  utter_ask_submit_issue_form_answer_q1:
+  - text: Can you confirm this issue persist after deleting cache and cookies?
+    buttons:
+    - title: 'yes'
+      payload: /inform{{"answer_q1":"yes"}}
+    - title: 'no'
+      payload: /inform{{"answer_q1":"no"}}
+  utter_ask_submit_issue_form_answer_q2:
+  - text: Would you like to be notified when this issue is resolved, and how?
+entities:
+- issue_id
+- gh_username
+- issue_description
+- issue_label
+- version
+- answer_q0
+- answer_q1
+- answer_q2
+slots:
+  FLAG_VALIDATE_FORM:
+    type: bool
+    mappings:
+    - type: custom
+  gh_username:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: gh_username
+      type: from_entity
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: gh_username
+    - entity: gh_username
+      type: from_entity
+      intent: op_submit_issue
+  issue_description:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      not_intent: cancel
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: issue_description
+  issue_id:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: issue_id
+      type: from_entity
+      intent: op_check_issue
+    - entity: issue_id
+      type: from_entity
+      intent: tell_issue_id
+  FLAG_CHECK_ISSUE_ACTIVE:
+    type: any
+    mappings:
+    - type: from_intent
+      value: true
+      intent: op_check_issue
+  FLAG_VALIDATE_ISSUE:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
+  CONTINUE_SUBMIT_ISSUE:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_intent
+      value: true
+      intent: affirm
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: CONTINUE_SUBMIT_ISSUE
+  POSSIBLE_DUPLICATES:
+    type: any
+    influence_conversation: false
+    mappings:
+    - type: custom
+  issue_label:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: issue_label
+      not_intent: cancel
+      type: from_entity
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: issue_label
+  version:
+    type: text
+    influence_conversation: true
+    mappings:
+    - entity: version
+      type: from_entity
+      not_intent: cancel
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: version
+  answer_q0:
+    type: text
+    mappings:
+    - type: from_text
+      not_intent: cancel
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: answer_q0
+  answer_q1:
+    type: text
+    mappings:
+    - type: from_entity
+      not_intent: cancel
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: answer_q1
+      entity: answer_q1
+  answer_q2:
+    type: text
+    mappings:
+    - type: from_text
+      not_intent: cancel
+      conditions:
+      - active_loop: submit_issue_form
+        requested_slot: answer_q2
+forms:
+  submit_issue_form:
+    required_slots:
+    - gh_username
+    - issue_description
+    - version
+    - issue_label
+    - answer_q0
+    - answer_q1
+    - answer_q2
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

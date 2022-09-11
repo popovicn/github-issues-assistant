@@ -1,0 +1,7 @@
+questions:
+  - text: "When was the first time you experienced this issue?"
+  - text: "Can you confirm this issue persist after deleting cache and cookies?"
+    one_of:
+      - "yes"
+      - "no"
+  - text: "Would you like to be notified when this issue is resolved, and how?"

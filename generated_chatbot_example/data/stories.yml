@@ -1,0 +1,35 @@
+version: "3.1"
+
+stories:
+
+- story: Submit form happy path
+  steps:
+    - intent: op_submit_issue
+    - action: submit_issue_form
+    - active_loop: submit_issue_form
+    - action: submit_issue_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: ask_confirm_submit_issue
+    - intent: affirm
+    - action: send_submit_issue_form
+    - action: utter_anything_else
+    - action: reset_all_slots_except_username
+    - slot_was_set:
+        - issue_description: null
+        - issue_label: null
+        - version: null
+    - action: action_listen
+
+- story: Check issue happy path
+  steps:
+    - intent: op_check_issue
+      entities:
+        - issue_id: 123
+    - slot_was_set:
+        - issue_id: 123
+    - action: action_check_issue
+    - slot_was_set:
+      - issue_id: null
+    - action: utter_anything_else

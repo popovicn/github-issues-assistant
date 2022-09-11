@@ -59,7 +59,6 @@ class CustomSlot:
         return [response]
 
 
-
 class ChatbotDir:
     def __init__(self, out_dir):
         self.dir = out_dir
@@ -87,7 +86,7 @@ class Generator:
             custom_slots.append(
                 CustomSlot(
                     name=f"answer_q{len(custom_slots)}",
-                    question=question.get("q"),
+                    question=question.get("text"),
                     one_of=question.get("one_of")
                 )
             )
@@ -141,9 +140,12 @@ class Generator:
 
     def _generate_actions(self):
         # Configure actions.py
-        FORM_FIELDS = ['issue_label', 'version']
+        FORM_FIELDS = {
+            'issue_label': 'label',
+            'version': 'Which version of the product are you using?'
+        }
         for slot in self.custom_slots:
-            FORM_FIELDS.append(slot.name)
+            FORM_FIELDS[slot.name] = slot.question
         with open('templates/actions.py.txt', 'r') as f:
             actions_content = f.read()
             actions_content = actions_content.replace('<FORM_FIELDS>', str(FORM_FIELDS))
@@ -161,13 +163,13 @@ class Generator:
 
     def init_chatbot(self):
         # Initialize chatbot directory
-        # if os.path.exists(self.out.dir):
-        #     shutil.rmtree(self.out.dir)
-        # os.mkdir(self.out.dir)
-        # os.mkdir(os.path.join(self.out.dir, 'data'))
-        # actions_dir = os.path.join(self.out.dir, 'actions')
-        # os.mkdir(actions_dir)
-        # open(os.path.join(actions_dir, "__init__.py"), 'w+').close()
+        if os.path.exists(self.out.dir):
+            shutil.rmtree(self.out.dir)
+        os.mkdir(self.out.dir)
+        os.mkdir(os.path.join(self.out.dir, 'data'))
+        actions_dir = os.path.join(self.out.dir, 'actions')
+        os.mkdir(actions_dir)
+        open(os.path.join(actions_dir, "__init__.py"), 'w+').close()
 
         # Write files
         self._generate_nlu()
@@ -177,16 +179,9 @@ class Generator:
 
 
 if __name__ == '__main__':
-    generator_cfg = {
-        "questions": [
-            {
-                "q": "Question 1 foo bar?",
-            },
-            {
-                "q": "Question 2 fixed choice?",
-                "one_of": ["foo", "bar"]
-            }
-        ]
-    }
-    g = Generator("test1", '../tbot', cfg=generator_cfg)
+    chatbot_name = "generated_chatbot_example"
+    out_dir = '../generated_chatbot_example'
+    with open('example_config.yml', 'r') as f:
+        cfg = yaml.safe_load(f)
+    g = Generator(chatbot_name, out_dir, cfg)
     g.init_chatbot()
